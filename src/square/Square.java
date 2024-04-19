@@ -2,17 +2,48 @@ package square;
 
 import java.util.Optional;
 
+import board.Board;
 import token.Token;
 import token.TokenType;
 
+/**
+ * La clase Square representa cada casilla de tablero.
+ * Se utiliza para almacenar información sobre la casilla y puede almacenar una ficha.
+ * Proporciona métodos para acceder a la información de la casilla y dibujar la casilla.
+ * @author César
+ * @version 1.0
+ * @since 1.0
+ * @see Board
+ * @see Token
+ */
 public class Square {
 	
+	/**
+	 * Atributo final que representa las coordenadas de la casilla.
+	 */
 	private final Position POSITION;
+	
+	/**
+	 * Atributo que puede almacenar una ficha
+	 */
 	private Token token;
-	private SquareType type;
-	private String color;
+	
+	/**
+	 * Atributo final que almacena el tipo de la casilla
+	 */
+	private final SquareType type;
+	
+	/**
+	 * Constante que almacena valor para borrar los colores
+	 */
 	private static final String RESET= "\u001b[0m";
 	
+	/**
+	 * Constructor de la clase Square. Dependiendo de los parametros 
+	 * pasados crea ficha y la almacena, también toma un valor u otro en SquareType 
+	 * @param x Parte de la clase Position
+	 * @param y Parte de la clase Position
+	 */
 	public Square(int x, int y){
 		this.POSITION = new Position(x ,y);
 		
@@ -74,33 +105,44 @@ public class Square {
 		else {
 			this.type = SquareType.Normal;
 		}
-		this.color = type.getColor();
 	}
 
+	/**
+	 * Obtiene la posicion de la casilla.
+	 * @return Posición
+	 */
 	public Position getPosition() {
 		return POSITION;
 	}
-
-	public Token getToken() {
-		return token;
+	
+	/**
+	 * Obtiene un Optional de la ficha de la casilla
+	 * @return Optional<Token> de token
+	 */
+	public Optional<Token> returnToken(){
+		Optional<Token> optToken;
+		optToken = Optional.ofNullable(token);
+		return optToken;
 	}
 
+	/**
+	 * Obtiene el tipo de la casilla
+	 * @return tipo
+	 */
 	public SquareType getType() {
 		return type;
 	}
-
-	public String getColor() {
-		return color;
-	}
 	
+	/**
+	 * Obtiene el String de la representación de la casilla
+	 * @return Dibujo de la casilla
+	 */
 	public String draw() {
-		Optional<Token> optToken;
-		optToken = Optional.ofNullable(this.token);
-		if(optToken.isEmpty()) {
-			return String.format("%s%s ♜ %s|", color, type.getColor2(), RESET);
+		if(returnToken().isEmpty()) {
+			return String.format("%s%s ♜ %s|", type.getColor(), type.getColor2(), RESET);
 		}
 		else {
-			return String.format("%s %s %s|", color, token.draw(), RESET);
+			return String.format("%s %s %s|", type.getColor(), token.draw(), RESET);
 		}
 	}
 	

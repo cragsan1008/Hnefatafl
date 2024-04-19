@@ -3,7 +3,7 @@ package board;
 import square.Square;
 
 /**
- * Clase Board representa un tablero. Su proposito es contruir y almacenar el tablero, 
+ * La clase Board representa un tablero. Su proposito es contruir y almacenar el tablero, 
  * permitiendonos recojer la informacion sobre las casillas en un mismo objeto.
  * Proporciona metodos para la creacion del tablero y pintado de este.
  * @author César
@@ -14,9 +14,12 @@ import square.Square;
 public class Board {
 	
 	/**
-	 * Array de casillas que conforman el tablero
+	 * Array de casillas que conforman el tablero.
 	 */
 	private final Square[][] BOARD = new Square[11][11];
+	/**
+	 * Constante que almacena el valor para representar el texto en negrita.
+	 */
 	private static final String BOLD = "\u001B[1m";
 	
 	/**
