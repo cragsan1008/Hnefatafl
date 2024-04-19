@@ -1,6 +1,5 @@
 package square;
 
-
 import java.util.Optional;
 
 import token.Token;

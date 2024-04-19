@@ -17,5 +17,6 @@ public enum TokenType {
 
 	public char getShape() {
 		return shape;
+
 	}
 }

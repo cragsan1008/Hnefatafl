@@ -8,10 +8,12 @@ public enum SquareType {
 		
 	}, 
 	Normal("\u001B[42m", "\u001B[32m"){
+
 		
 	};
 
 	private final String color;
+
 	private final String color2;
 	
 	SquareType(String color, String color2) {
