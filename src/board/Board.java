@@ -11,6 +11,7 @@ import square.Square;
  * @since 1.0
  * @see Square
  */
+
 public class Board {
 	
 	/**
