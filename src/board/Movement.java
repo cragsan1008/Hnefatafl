@@ -1,5 +1,6 @@
 package board;
 
+import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -41,7 +42,8 @@ public class Movement {
 					stay = false;
 				}
 			}
-			for(int i = x+1; i <= 11 && stay ; i++) {
+			stay = true;
+			for(int i = x+1; i <= 10 && stay ; i++) {
 				if(BOARD[i][y].returnToken().isEmpty()) {
 					moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
 					index++;
@@ -50,6 +52,7 @@ public class Movement {
 					stay = false;
 				}
 			}
+			stay = true;
 			for(int i = y-1; i >= 0 && stay ; i--) {
 				if(BOARD[x][i].returnToken().isEmpty()) {
 					moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
@@ -59,7 +62,8 @@ public class Movement {
 					stay = false;
 				}
 			}
-			for(int i = y+1; i <= 11 && stay ; i++) {
+			stay = true;
+			for(int i = y+1; i <= 10 && stay ; i++) {
 				if(BOARD[x][i].returnToken().isEmpty()) {
 					moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
 					index++;
@@ -75,6 +79,25 @@ public class Movement {
 	public Square getSquareD() {
 		return squareD;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(squareD, squareO);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Movement other = (Movement) obj;
+		return Objects.equals(squareD, other.squareD) && Objects.equals(squareO, other.squareO);
+	}
+	
+	
 	
 //	private Direction moveDirection(){
 //		String direction;

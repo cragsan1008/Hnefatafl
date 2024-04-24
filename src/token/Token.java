@@ -65,6 +65,10 @@ public class Token {
 		return String.format("%s%s", this.getType().getColor(), this.getType().getShape());
 		
 	}
+	
+	public void setSquare(Square square) {
+		this.square = square;
+	}
 
 	@Override
 	public int hashCode() {
