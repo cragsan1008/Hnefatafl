@@ -109,8 +109,8 @@ public class Board {
 			y2 = console.readIntInRange(0, 11);
 			valid = moveConfirm(x, y, x2, y2, moveList);
 			if (valid){
-				BOARD[x][y].setToken(null);
 				BOARD[x2][y2].setToken(opTok.get());
+				BOARD[x][y].setToken(null);
 			}
 		}
 	}
