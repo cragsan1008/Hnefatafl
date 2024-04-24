@@ -1,5 +1,6 @@
 package token;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import square.Square;
@@ -64,5 +65,21 @@ public class Token {
 		return String.format("%s%s", this.getType().getColor(), this.getType().getShape());
 		
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(square, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Token))
+			return false;
+		Token other = (Token) obj;
+		return Objects.equals(square, other.square) && type == other.type;
+	}
+	
 	
 }

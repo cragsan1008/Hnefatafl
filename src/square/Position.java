@@ -1,5 +1,7 @@
 package square;
 
+import java.util.Objects;
+
 /**
  * La clase Position representa la posición de una casilla.
  * Almacena la información sobre la posición.
@@ -46,5 +48,23 @@ public class Position {
 	 */
 	public int getY() {
 		return y;
-	}	
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(x, y);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Position))
+			return false;
+		Position other = (Position) obj;
+		return x == other.x && y == other.y;
+	}
+	
+	
+	
 }

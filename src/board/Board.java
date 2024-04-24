@@ -1,6 +1,12 @@
 package board;
 
+import java.util.Optional;
+import java.util.SortedMap;
+import java.util.TreeMap;
+
+import console.ConsoleInput;
 import square.Square;
+import token.Token;
 
 /**
  * La clase Board representa un tablero. Su proposito es contruir y almacenar el tablero, 
@@ -13,6 +19,7 @@ import square.Square;
  */
 
 public class Board {
+	
 	
 	/**
 	 * Array de casillas que conforman el tablero.
@@ -75,4 +82,67 @@ public class Board {
 			System.out.println("\n");
 		}
 	}
+	
+	public void move(ConsoleInput console){
+		int x , y, x2, y2;
+		boolean valid;
+		Optional<Token> opTok;
+		Movement movement;	
+		SortedMap<Integer ,Movement> moveList;
+		moveList = new TreeMap<>();
+		
+		System.out.println("Elige posicion de ficha a mover:");
+		x = console.readIntInRange(0, 11);
+		y = console.readIntInRange(0, 11);
+		opTok = BOARD[x][y].returnToken();
+
+		
+		if(opTok.isEmpty()){
+			System.out.println("Casilla vacia");
+			move(console);
+		}
+		else {
+			movement = new Movement(BOARD[x][y]);
+			moveList = movement.validateMove(BOARD, x , y);
+			System.out.println("Elige posicion a mover:");
+			x2 = console.readIntInRange(0, 11);
+			y2 = console.readIntInRange(0, 11);
+			valid = moveConfirm(x, y, x2, y2, moveList);
+			if (valid){
+				BOARD[x][y].setToken(null);
+				BOARD[x2][y2].setToken(opTok.get());
+			}
+		}
+	}
+	
+	private boolean moveConfirm(int x , int y, int x2, int y2, SortedMap<Integer ,Movement> moveList) {
+		for (Movement movement : moveList.values()) {
+	        if (movement.equals(new Movement(BOARD[x][y], BOARD[x2][y2]))) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

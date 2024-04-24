@@ -1,5 +1,6 @@
 package square;
 
+import java.util.Objects;
 import java.util.Optional;
 
 import board.Board;
@@ -144,6 +145,33 @@ public class Square {
 		else {
 			return String.format("%s %s %s|", type.getColor(), token.draw(), RESET);
 		}
+	}
+	
+	public void move(){
+		
+	}
+	
+	public void kill() {
+		token = null;
+	}
+
+	public void setToken(Token token) {
+		this.token = token;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(POSITION, token, type);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (!(obj instanceof Square))
+			return false;
+		Square other = (Square) obj;
+		return Objects.equals(POSITION, other.POSITION) && Objects.equals(token, other.token) && type == other.type;
 	}
 	
 }
