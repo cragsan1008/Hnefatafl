@@ -5,72 +5,67 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 
 import square.Square;
+import square.SquareType;
+import token.TokenType;
 
 public class Movement {
-	
+
 	private Square squareO;
 	private Square squareD;
 	private SortedMap<Integer, Movement> moValid = new TreeMap<>();
-	
-	Movement(Square squareO){
+
+	Movement(Square squareO) {
 		this.squareO = squareO;
 	}
-	
-	Movement(Square squareO, Square squareD){
+
+	Movement(Square squareO, Square squareD) {
 		this.squareO = squareO;
 		this.squareD = squareD;
 
 	}
 
-
-	public SortedMap<Integer, Movement> validateMove(Square[][] BOARD, int x , int y){
+	public SortedMap<Integer, Movement> movementList(Square[][] BOARD, int x, int y) {
 		int index = 0;
 		boolean stay;
 		squareO = BOARD[x][y];
-		if(BOARD[x][y].returnToken().isEmpty()){
-			System.out.println("Casilla vacia");
-			return validateMove(BOARD, x, y);
+
+		stay = true;
+		for (int i = x - 1; i >= 0 && stay; i--) {
+			if (BOARD[i][y].returnToken().isEmpty() &&( BOARD[i][y].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King  )) {
+				moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
+				index++;
+			} else if(BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+				stay = true;
+			}
+			else {
+				stay = false;
+			}
 		}
-		else {
-			stay = true;
-			for(int i = x-1; i >= 0 && stay ; i--) {
-				if(BOARD[i][y].returnToken().isEmpty()) {
-					moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
-					index++;
-				}
-				else{
-					stay = false;
-				}
+		stay = true;
+		for (int i = x + 1; i <= 10 && stay; i++) {
+			if (BOARD[i][y].returnToken().isEmpty()) {
+				moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
+				index++;
+			} else {
+				stay = false;
 			}
-			stay = true;
-			for(int i = x+1; i <= 10 && stay ; i++) {
-				if(BOARD[i][y].returnToken().isEmpty()) {
-					moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
-					index++;
-				}
-				else{
-					stay = false;
-				}
+		}
+		stay = true;
+		for (int i = y - 1; i >= 0 && stay; i--) {
+			if (BOARD[x][i].returnToken().isEmpty()) {
+				moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
+				index++;
+			} else {
+				stay = false;
 			}
-			stay = true;
-			for(int i = y-1; i >= 0 && stay ; i--) {
-				if(BOARD[x][i].returnToken().isEmpty()) {
-					moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
-					index++;
-				}
-				else{
-					stay = false;
-				}
-			}
-			stay = true;
-			for(int i = y+1; i <= 10 && stay ; i++) {
-				if(BOARD[x][i].returnToken().isEmpty()) {
-					moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
-					index++;
-				}
-				else{
-					stay = false;
-				}
+		}
+		stay = true;
+		for (int i = y + 1; i <= 10 && stay; i++) {
+			if (BOARD[x][i].returnToken().isEmpty()) {
+				moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
+				index++;
+			} else {
+				stay = false;
 			}
 		}
 		return moValid;
@@ -96,9 +91,7 @@ public class Movement {
 		Movement other = (Movement) obj;
 		return Objects.equals(squareD, other.squareD) && Objects.equals(squareO, other.squareO);
 	}
-	
-	
-	
+
 //	private Direction moveDirection(){
 //		String direction;
 //		System.out.println("Elige una direción en la que mover la ficha");

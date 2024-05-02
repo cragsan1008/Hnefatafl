@@ -14,17 +14,17 @@ public enum TokenType {
 	/**
 	 * El enum Defender es una ficha normal del bando defensor (unicode-Color blanco, char-Torre ajedrez).
 	 */
-	Defender("\u001B[37m", '♜'),
+	Defender("\u001B[37m", '♜', "Defender"),
 	
 	/**
 	 * El enum Attacker es una ficha normal del bando atacante (unicode-Color azul, char-Torre ajedrez).
 	 */
-	Attacker("\u001B[34m", '♜'),
+	Attacker("\u001B[34m", '♜', "Attacker"),
 	
 	/**
 	 * El enum Defender es la ficha más importante del bando defensor (unicode-Color blanco, char-Rey ajedrez).
 	 */
-	King("\u001B[31m", '♚');
+	King("\u001B[31m", '♚', "Defender");
 	
 	
 	/**
@@ -38,18 +38,24 @@ public enum TokenType {
 	private final char shape;
 	
 	/**
+	 * Rol de la ficha
+	 */
+	private final String rol;
+	
+	/**
 	 * Constructor de TokenType.
 	 * 
 	 * @param color color de la ficha
 	 * @param shape forma de la ficha
 	 */
-	TokenType(String color, char shape) {
-		this.color=color;
-		this.shape=shape;
+	TokenType(String color, char shape, String rol) {
+		this.color = color;
+		this.shape = shape;
+		this.rol = rol;
 	}
 
 	/**
-	 * Obtiene el color de la ficha.
+	 * Obtiene el color del tipo de ficha.
 	 * @return color
 	 */
 	public String getColor() {
@@ -57,11 +63,19 @@ public enum TokenType {
 	}
 
 	/**
-	 * Obtiene la forma de la casilla.
+	 * Obtiene la forma del tipo de ficha.
 	 * @return forma
 	 */
 	public char getShape() {
 		return shape;
 
+	}
+	
+	/**
+	 * Obtiene rol del tipo de ficha 
+	 * @return rol
+	 */
+	public String getRol() {
+		return rol;
 	}
 }

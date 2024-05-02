@@ -147,6 +147,15 @@ public class Square {
 		}
 	}
 	
+	public String drawColorLess() {
+		if(returnToken().isEmpty()) {
+			return String.format(" ♜ %s|", RESET);
+		}
+		else {
+			return String.format(" %s %s|", token.draw(), RESET);
+		}
+	}
+	
 	public void move(){
 		
 	}
