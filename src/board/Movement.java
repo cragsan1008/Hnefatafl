@@ -14,11 +14,11 @@ public class Movement {
 	private Square squareD;
 	private SortedMap<Integer, Movement> moValid = new TreeMap<>();
 
-	Movement(Square squareO) {
+	public Movement(Square squareO) {
 		this.squareO = squareO;
 	}
 
-	Movement(Square squareO, Square squareD) {
+	public Movement(Square squareO, Square squareD) {
 		this.squareO = squareO;
 		this.squareD = squareD;
 
@@ -34,7 +34,8 @@ public class Movement {
 			if (BOARD[i][y].returnToken().isEmpty() &&( BOARD[i][y].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King  )) {
 				moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
 				index++;
-			} else if(BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+			}
+			else if(BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
 				stay = true;
 			}
 			else {
@@ -43,28 +44,40 @@ public class Movement {
 		}
 		stay = true;
 		for (int i = x + 1; i <= 10 && stay; i++) {
-			if (BOARD[i][y].returnToken().isEmpty()) {
+			if (BOARD[i][y].returnToken().isEmpty() &&( BOARD[i][y].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
 				index++;
-			} else {
+			}
+			else if(BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+				stay = true;
+			} 
+			else {
 				stay = false;
 			}
 		}
 		stay = true;
 		for (int i = y - 1; i >= 0 && stay; i--) {
-			if (BOARD[x][i].returnToken().isEmpty()) {
+			if (BOARD[x][i].returnToken().isEmpty() &&( BOARD[x][i].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
 				index++;
-			} else {
+			}
+			else if(BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
+				stay = true;
+			} 
+			else {
 				stay = false;
 			}
 		}
 		stay = true;
 		for (int i = y + 1; i <= 10 && stay; i++) {
-			if (BOARD[x][i].returnToken().isEmpty()) {
+			if (BOARD[x][i].returnToken().isEmpty() &&( BOARD[x][i].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
 				index++;
-			} else {
+			}
+			else if(BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
+				stay = true;
+			}  
+			else {
 				stay = false;
 			}
 		}
@@ -73,6 +86,10 @@ public class Movement {
 
 	public Square getSquareD() {
 		return squareD;
+	}
+	
+	public Square getSquareO() {
+		return squareO;
 	}
 
 	@Override

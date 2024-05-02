@@ -72,17 +72,19 @@ public class Game {
 	
 	public void start() {
 		boolean unfineshed;
+		int initial = 0;
 		unfineshed = true;
 		while (unfineshed) {
-			board.draw();
+			if(initial == 0) {
+				board.draw();
+				initial++;
+			}
 			System.out.println("Turno del jugador 1:");
 			board.move(playerOne);
-			board.draw();
 			unfineshed = checkBoard();
 			if(unfineshed) {
 				System.out.println("Turno del jugador 2:");
 				board.move(playerTwo);
-				board.draw();
 			}
 			unfineshed = checkBoard();
 		}

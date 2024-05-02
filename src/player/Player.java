@@ -4,7 +4,6 @@ import java.util.Map;
 import java.util.Scanner;
 
 import board.Board;
-import board.Movement;
 import console.ConsoleInput;
 import square.Position;
 import token.Token;

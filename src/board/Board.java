@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
-import console.ConsoleInput;
 import player.Player;
 import square.Position;
 import square.Square;
@@ -37,6 +36,7 @@ public class Board {
 	private static final String RESET = "\u001b[0m";
 
 	private static final String LAST = "\u001B[43m";
+	private static final String HIDE = "\u001B[33m";
 
 	private static final String POSIBILITY = "\u001B[44m";
 	private static final String POSIBILITY2 = "\u001B[34m";
@@ -100,7 +100,6 @@ public class Board {
 		SortedMap<Integer, Movement> moveList;
 		moveList = new TreeMap<>();
 
-		System.out.println("Elige posicion de ficha a mover(primero x, luego y):");
 		position = player.confirmMovePiece();
 		x = position.getX();
 		y = position.getY();
@@ -131,8 +130,9 @@ public class Board {
 		boolean valid;
 		int x2, y2;
 		Position position;
-		drawPosibleMove(moveList);
-		System.out.println("Elige posicion a mover(primero x, luego y):");
+		if (player.getClass().getSimpleName().equals("Person") ) {
+			drawPosibleMove(moveList);
+		}
 		position = player.confirmMovePiece();
 		x2 = position.getX();
 		y2 = position.getY();
@@ -168,17 +168,8 @@ public class Board {
 	}
 
 	private void checkMoveKill(int x, int y) {
-
-		// Tengo que tener en cuenta si la ficha es la 1 o la 0 y 9, 10 no compruebe la
-		// -1 y la 11
-		// fallo aposta para que me salte el error
-
 		if (x != 10) {
-			if (BOARD[x + 1][y].returnToken().isPresent()) {// && BOARD[x+1][y] != BOARD[9][y] && BOARD[x+1][y] !=
-															// BOARD[10][y](No creo que sea necesario ya que con x10
-															// nunca va a tener un x11 el fallo en este caso puede ser
-															// que llame al BOARD[11][y] y de fallo por salirse del
-															// limite del array
+			if (BOARD[x + 1][y].returnToken().isPresent()) {
 				if (x + 2 != 11) {
 					if (BOARD[x + 1][y].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
 							&& BOARD[x + 2][y].returnToken().isPresent()) {
@@ -349,18 +340,27 @@ public class Board {
 				System.out.printf("%sx  y0    1   2   3    4   5   6    7   8   9   10 y  x\n", BOLD);
 			}
 
-			for (int j = 0; j <= BOARD[i].length; j++) {
-				if (move.getSquareD() == BOARD[i][j]) {
-					System.out.printf("%s%s%s", LAST, BOARD[i][j].drawColorLess(), RESET);
-				} else if (j != -1) {
-					System.out.printf("%s", BOARD[i][j].draw());
-				} else if (j == -1) {
+			for (int j = -1; j < BOARD[i].length; j++) {
+				 if (j != -1) {
+					 if (move.getSquareD() == BOARD[i][j]) {
+							System.out.printf("%s%s%s", LAST, BOARD[i][j].drawColorLess(), RESET);
+						}
+					 else if(move.getSquareO() == BOARD[i][j]) {
+							System.out.printf("%s%s%s%s", LAST, HIDE, BOARD[i][j].drawColorLess(), RESET);
+					 }
+					 else {
+						 System.out.printf("%s", BOARD[i][j].draw());
+
+					 }
+				}  
+				 if (j == -1) {
 					if (i == 10) {
 						System.out.printf("%s%-3s", BOLD, i);
 					} else {
 						System.out.printf("%s%-3s", BOLD, i);
 					}
-				} else if (j == 10) {
+				}
+				 if (j == 10) {
 					if (i == 10) {
 						System.out.printf("%s%3s", BOLD, i);
 					} else {
@@ -379,44 +379,50 @@ public class Board {
 	}
 
 	public void drawPosibleMove(SortedMap<Integer, Movement> moveList) {
-	    // Imprimir encabezado de columna
-	    System.out.printf("%sx  y0    1   2   3    4   5   6    7   8   9   10 y  x\n", BOLD);
-	    
-	    for (int i = 0; i < BOARD.length; i++) {
-	        // Imprimir número de fila al principio
-	        System.out.printf("%s%-3s", BOLD, i);
+		boolean possible;
+		for (int i = 0; i < BOARD.length; i++) {
+			if (i == 0) {
+				System.out.printf("%sx  y0    1   2   3    4   5   6    7   8   9   10 y  x\n", BOLD);
+			}
 
-	        for (int j = 0; j < BOARD[i].length; j++) {
-	            boolean isPossibleMove = false;
-	            for (Movement movement : moveList.values()) {
-	                if (movement.getSquareD() == BOARD[i][j]) {
-	                    isPossibleMove = true;
-	                    break;
-	                }
-	            }
+			for (int j = -1; j < BOARD[i].length; j++) {
+				possible = false;
+				 if (j != -1) {
+					 for (Movement movement : moveList.values()) {
+			                if (movement.getSquareD() == BOARD[i][j]) {
+			                	possible = true;    
+			                }
+			         }
+					 if (possible) {
+			                System.out.printf("%s%s%s%s", POSIBILITY, POSIBILITY2, BOARD[i][j].drawColorLess(), RESET);
+			            } else {
+			                System.out.printf("%s", BOARD[i][j].draw());
+			            }
+				} 
+				if (j == -1) {
+					if (i == 10) {
+						System.out.printf("%s%-3s", BOLD, i);
+					} else {
+						System.out.printf("%s%-3s", BOLD, i);
+					}
+				} 
+				else if (j == 10) {
+					if (i == 10) {
+						System.out.printf("%s%3s", BOLD, i);
+					} else {
+						System.out.printf("%s%3s", BOLD, i);
+					}
+				}
 
-	            if (isPossibleMove) {
-	                System.out.printf("%s%s%s%s", POSIBILITY, POSIBILITY2, BOARD[i][j].drawColorLess(), RESET);
-	            } else {
-	                System.out.printf("%s", BOARD[i][j].draw());
-	            }
-	        }
+			}
+			if (i == 10) {
+				System.out.println("");
+				System.out.printf("%sx  y0    1   2   3    4   5   6    7   8   9   10 y  x\n", BOLD);
+			}
+			System.out.println("\n");
+		}
 
-	        // Imprimir número de fila al final
-	        System.out.printf("%s%3s\n", BOLD, i);
-	        // Agregar salto de línea entre filas
-	        System.out.println();
-	    }
-
-	    // Imprimir números de columna al final
-	    System.out.printf("%sx  y0    1   2   3    4   5   6    7   8   9   10 y  x\n", BOLD);
 	}
-
-
-
-
-
-
 
 	public Square[][] getBOARD() {
 		return BOARD;

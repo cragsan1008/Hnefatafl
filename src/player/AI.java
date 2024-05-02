@@ -10,6 +10,9 @@ public class AI extends Player {
 
 	@Override
 	public Position confirmMovePiece() {
+		for(Board) {
+			
+		}
 		return null;
 	}
 
