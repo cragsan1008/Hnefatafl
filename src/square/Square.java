@@ -108,6 +108,12 @@ public class Square {
 		}
 	}
 
+	public Square(Square square) {
+		this.token= square.returnToken().orElse(null);
+		this.POSITION = square.POSITION;
+		this.type = square.type;
+	}
+
 	/**
 	 * Obtiene la posicion de la casilla.
 	 * @return Posición
@@ -156,14 +162,6 @@ public class Square {
 		}
 	}
 	
-	public void move(){
-		
-	}
-	
-	public void kill() {
-		token = null;
-	}
-
 	public void setToken(Token token) {
 		this.token = token;
 	}

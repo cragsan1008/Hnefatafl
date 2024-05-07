@@ -51,6 +51,25 @@ public class Board {
 			}
 		}
 	}
+	
+	  public Square[][] cloneBoard() {
+	        Square[][] newBoard = new Square[BOARD.length][BOARD[0].length];
+	        for (int i = 0; i < BOARD.length; i++) {
+	            for (int j = 0; j < BOARD[i].length; j++) {
+	                newBoard[i][j] = new Square(BOARD[i][j]);
+	            }
+	        }
+	        return newBoard;
+	    }
+
+	    public void restoreBoard(Square[][] backupBoard) {
+	        for (int i = 0; i < BOARD.length; i++) {
+	            for (int j = 0; j < BOARD[i].length; j++) {
+	                BOARD[i][j] = new Square(backupBoard[i][j]);
+	            }
+	        }
+	    }
+
 
 	/**
 	 * Metodo que sirve para dibujar el tablero con todos sus componentes como las
@@ -93,60 +112,24 @@ public class Board {
 	}
 
 	public void move(Player player) {
-		int x, y;
 		Optional<Token> opTok;
-		Position position;
-		Movement movement;
-		SortedMap<Integer, Movement> moveList;
-		moveList = new TreeMap<>();
-
-		position = player.confirmMovePiece();
-		x = position.getX();
-		y = position.getY();
+		Movement m;
+		int x, y, x2, y2;
+		
+		m = player.confirmMovePiece();
+		x = m.getSquareO().getPosition().getX();
+		y = m.getSquareO().getPosition().getY();
+		x2 = m.getSquareD().getPosition().getX();
+		y2 = m.getSquareD().getPosition().getY();
+		
+		BOARD[x][y].returnToken().get().setSquare(BOARD[x2][y2]);
 		opTok = BOARD[x][y].returnToken();
-		if (opTok.isEmpty()) {
-			System.out.println("Casilla vacia");
-			move(player);
-		} else {
-			if (opTok.get().getType().getRol() != player.getRol()) {
-				System.out.println("Ficha del rival");
-				move(player);
-			} else {
-				movement = new Movement(BOARD[x][y]);
-				moveList = movement.movementList(BOARD, x, y);
-
-				if (!moveList.isEmpty()) {
-					moveFinisher(player, opTok, x, y, moveList);
-				} else {
-					System.out.println("Ficha sin movimientos validos");
-					move(player);
-				}
-			}
-		}
-	}
-
-	private void moveFinisher(Player player, Optional<Token> opTok, int x, int y,
-			SortedMap<Integer, Movement> moveList) {
-		boolean valid;
-		int x2, y2;
-		Position position;
-		if (player.getClass().getSimpleName().equals("Person") ) {
-			drawPosibleMove(moveList);
-		}
-		position = player.confirmMovePiece();
-		x2 = position.getX();
-		y2 = position.getY();
-		valid = moveConfirm(x, y, x2, y2, moveList);
-		if (valid) {
-			BOARD[x2][y2].setToken(opTok.get());
-			BOARD[x][y].returnToken().get().setSquare(BOARD[x2][y2]);
-			BOARD[x][y].setToken(null);
-			checkMoveKill(x2, y2);
-			drawLast(x, y, x2, y2, moveList);
-		} else {
-			moveFinisher(player, opTok, x, y, moveList);
-		}
-
+		BOARD[x2][y2].setToken(opTok.get());
+		BOARD[x][y].setToken(null);
+		
+		
+		checkMoveKill(x2, y2);
+		drawLast(m);
 	}
 
 	private boolean moveConfirm(int x, int y, int x2, int y2, SortedMap<Integer, Movement> moveList) {
@@ -166,15 +149,17 @@ public class Board {
 		}
 		return null;
 	}
-
+	
+	
 	private void checkMoveKill(int x, int y) {
 		if (x != 10) {
 			if (BOARD[x + 1][y].returnToken().isPresent()) {
 				if (x + 2 != 11) {
 					if (BOARD[x + 1][y].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x + 2][y].returnToken().isPresent()) {
+							&& (BOARD[x + 2][y].returnToken().isPresent()|| BOARD[x+2][y].getType() != SquareType.Normal)) {
+						if(BOARD[x + 2][y].returnToken().isPresent()) {
 						if (BOARD[x + 2][y].returnToken().get().getType() == BOARD[x][y].returnToken().get()
-								.getType()) {
+								.getType()|| BOARD[x+2][y].getType() != SquareType.Normal) {
 							if (BOARD[x + 1][y].returnToken().get().getType() == TokenType.King
 									&& BOARD[x][y].returnToken().get().getType() == TokenType.Attacker) {
 								if (BOARD[x + 1][y + 1].returnToken().isPresent()
@@ -197,12 +182,16 @@ public class Board {
 										kill(x + 1, y);
 									}
 								}
-							} else {
+							} else if (BOARD[x + 1][y].returnToken().get().getType() != TokenType.King) {
 								kill(x + 1, y);
 
 							}
 
 						}
+						}else {
+							kill(x + 1, y);
+						}
+
 					}
 				}
 			}
@@ -212,7 +201,8 @@ public class Board {
 			if (BOARD[x - 1][y].returnToken().isPresent()) {
 				if (x - 2 != -1) {
 					if (BOARD[x - 1][y].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x - 2][y].returnToken().isPresent()) {
+							&& (BOARD[x - 2][y].returnToken().isPresent()|| BOARD[x-2][y].getType() != SquareType.Normal)) {
+						if(BOARD[x - 2][y].returnToken().isPresent()) {
 						if (BOARD[x - 2][y].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 								.getType()) {
 							if (BOARD[x - 1][y].returnToken().get().getType() == TokenType.King
@@ -237,11 +227,16 @@ public class Board {
 										kill(x - 1, y);
 									}
 								}
-							} else {
+							} else if (BOARD[x - 1][y].returnToken().get().getType() != TokenType.King) {
 								kill(x - 1, y);
 
 							}
 						}
+						}
+						else {
+						kill(x - 1, y);
+						}
+
 					}
 				}
 			}
@@ -251,7 +246,8 @@ public class Board {
 			if (BOARD[x][y + 1].returnToken().isPresent()) {
 				if (y + 2 != 11) {
 					if (BOARD[x][y + 1].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x][y + 2].returnToken().isPresent()) {
+							&& (BOARD[x][y + 2].returnToken().isPresent()|| BOARD[x][y + 2].getType() != SquareType.Normal)) {
+						if(BOARD[x][y + 2].returnToken().isPresent()) {
 						if (BOARD[x][y + 2].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 								.getType()) {
 							if (BOARD[x][y + 1].returnToken().get().getType() == TokenType.King
@@ -276,10 +272,13 @@ public class Board {
 										kill(x, y + 1);
 									}
 								}
-							} else {
+							} else if (BOARD[x][y + 1].returnToken().get().getType() != TokenType.King){
 								kill(x, y + 1);
 
 							}
+						}
+						}else {
+						kill(x, y + 1);
 						}
 					}
 				}
@@ -290,7 +289,9 @@ public class Board {
 			if (BOARD[x][y - 1].returnToken().isPresent()) {
 				if (y - 2 != -1) {
 					if (BOARD[x][y - 1].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x][y - 2].returnToken().isPresent()) {
+							&&( BOARD[x][y - 2].returnToken().isPresent() || BOARD[x][y - 2].getType() != SquareType.Normal)) {
+						if(BOARD[x][y - 2].returnToken().isPresent()) {
+
 						if (BOARD[x][y - 2].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 								.getType()) {
 							if (BOARD[x][y - 1].returnToken().get().getType() == TokenType.King
@@ -315,12 +316,15 @@ public class Board {
 										kill(x, y - 1);
 									}
 								}
-							} else {
+							} else if (BOARD[x][y - 1].returnToken().get().getType() != TokenType.King){
+
 								kill(x, y - 1);
 
 							}
 
 						}
+						}else {
+						kill(x, y - 1);}
 					}
 				}
 			}
@@ -332,9 +336,7 @@ public class Board {
 		BOARD[z][w].setToken(null);
 	}
 
-	public void drawLast(int x, int y, int x2, int y2, SortedMap<Integer, Movement> moveList) {
-		Movement move;
-		move = moveExtract(x, y, x2, y2, moveList);
+	public void drawLast(Movement move) {
 		for (int i = 0; i < BOARD.length; i++) {
 			if (i == 0) {
 				System.out.printf("%sx  y0    1   2   3    4   5   6    7   8   9   10 y  x\n", BOLD);

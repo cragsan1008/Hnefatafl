@@ -14,6 +14,10 @@ public class Movement {
 	private Square squareD;
 	private SortedMap<Integer, Movement> moValid = new TreeMap<>();
 
+	public Movement() {
+		
+	}
+	
 	public Movement(Square squareO) {
 		this.squareO = squareO;
 	}
