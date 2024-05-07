@@ -1,15 +1,10 @@
 package game;
 
-import java.util.Scanner;
-
-import board.Board;
-import console.ConsoleInput;
 
 public class Hnefatafl {
 
 	public void start(){
 		Game game = new Game();
-		Board board;
 		
 		game.start();
 	}

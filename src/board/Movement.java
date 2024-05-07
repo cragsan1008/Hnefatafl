@@ -28,9 +28,6 @@ public class Movement {
 
 	}
 
-	public Movement() {
-	}
-
 	public SortedMap<Integer, Movement> movementList(Square[][] BOARD, int x, int y) {
 		int index = 0;
 		boolean stay;

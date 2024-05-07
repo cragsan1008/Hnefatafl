@@ -68,6 +68,7 @@ public class Person extends Player {
 			return position = new Position(x2, y2);
 		} 
 		else {
+			System.out.println("Casilla de destino no valida");
 			return secondMove(x, y, moveList);
 		}
 
