@@ -172,9 +172,10 @@ public class Board {
 			if (BOARD[x + 1][y].returnToken().isPresent()) {
 				if (x + 2 != 11) {
 					if (BOARD[x + 1][y].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x + 2][y].returnToken().isPresent()) {
+							&& (BOARD[x + 2][y].returnToken().isPresent()|| BOARD[x+2][y].getType() != SquareType.Normal)) {
+						if(BOARD[x + 2][y].returnToken().isPresent()) {
 						if (BOARD[x + 2][y].returnToken().get().getType() == BOARD[x][y].returnToken().get()
-								.getType()) {
+								.getType()|| BOARD[x+2][y].getType() != SquareType.Normal) {
 							if (BOARD[x + 1][y].returnToken().get().getType() == TokenType.King
 									&& BOARD[x][y].returnToken().get().getType() == TokenType.Attacker) {
 								if (BOARD[x + 1][y + 1].returnToken().isPresent()
@@ -197,12 +198,16 @@ public class Board {
 										kill(x + 1, y);
 									}
 								}
-							} else {
+							} else if (BOARD[x + 1][y].returnToken().get().getType() != TokenType.King) {
 								kill(x + 1, y);
 
 							}
 
 						}
+						}else {
+							kill(x + 1, y);
+						}
+
 					}
 				}
 			}
@@ -212,7 +217,8 @@ public class Board {
 			if (BOARD[x - 1][y].returnToken().isPresent()) {
 				if (x - 2 != -1) {
 					if (BOARD[x - 1][y].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x - 2][y].returnToken().isPresent()) {
+							&& (BOARD[x - 2][y].returnToken().isPresent()|| BOARD[x-2][y].getType() != SquareType.Normal)) {
+						if(BOARD[x - 2][y].returnToken().isPresent()) {
 						if (BOARD[x - 2][y].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 								.getType()) {
 							if (BOARD[x - 1][y].returnToken().get().getType() == TokenType.King
@@ -237,11 +243,16 @@ public class Board {
 										kill(x - 1, y);
 									}
 								}
-							} else {
+							} else if (BOARD[x - 1][y].returnToken().get().getType() != TokenType.King) {
 								kill(x - 1, y);
 
 							}
 						}
+						}
+						else {
+						kill(x - 1, y);
+						}
+
 					}
 				}
 			}
@@ -251,7 +262,8 @@ public class Board {
 			if (BOARD[x][y + 1].returnToken().isPresent()) {
 				if (y + 2 != 11) {
 					if (BOARD[x][y + 1].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x][y + 2].returnToken().isPresent()) {
+							&& (BOARD[x][y + 2].returnToken().isPresent()|| BOARD[x][y + 2].getType() != SquareType.Normal)) {
+						if(BOARD[x][y + 2].returnToken().isPresent()) {
 						if (BOARD[x][y + 2].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 								.getType()) {
 							if (BOARD[x][y + 1].returnToken().get().getType() == TokenType.King
@@ -276,10 +288,13 @@ public class Board {
 										kill(x, y + 1);
 									}
 								}
-							} else {
+							} else if (BOARD[x][y + 1].returnToken().get().getType() != TokenType.King){
 								kill(x, y + 1);
 
 							}
+						}
+						}else {
+						kill(x, y + 1);
 						}
 					}
 				}
@@ -290,7 +305,9 @@ public class Board {
 			if (BOARD[x][y - 1].returnToken().isPresent()) {
 				if (y - 2 != -1) {
 					if (BOARD[x][y - 1].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& BOARD[x][y - 2].returnToken().isPresent()) {
+							&&( BOARD[x][y - 2].returnToken().isPresent() || BOARD[x][y - 2].getType() != SquareType.Normal)) {
+						if(BOARD[x][y - 2].returnToken().isPresent()) {
+
 						if (BOARD[x][y - 2].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 								.getType()) {
 							if (BOARD[x][y - 1].returnToken().get().getType() == TokenType.King
@@ -315,12 +332,15 @@ public class Board {
 										kill(x, y - 1);
 									}
 								}
-							} else {
+							} else if (BOARD[x][y - 1].returnToken().get().getType() != TokenType.King){
+
 								kill(x, y - 1);
 
 							}
 
 						}
+						}else {
+						kill(x, y - 1);}
 					}
 				}
 			}
