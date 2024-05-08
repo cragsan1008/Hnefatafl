@@ -37,20 +37,15 @@ public class Game {
 	 * Variable que guarda el jugador 2
 	 */
 	private Player playerTwo;
-	/**
-	 * Variable que guarda el Scanner que tiene el input
-	 */
-	private Scanner keyboard = new Scanner(System.in);
-	/**
-	 * Variable que guarda el ConsoleInput
-	 */
-	private ConsoleInput console = new ConsoleInput(keyboard);
+		
 
 	/**
 	 * Constructor del juego donde nos dan opciones tal como elegir los jugadores y
 	 * sus roles
 	 */
 	Game() {
+		Scanner keyboard = new Scanner(System.in);
+		ConsoleInput console = new ConsoleInput(keyboard);
 		board = new Board();
 		System.out.println("Elige:\n1.1 vs 1\n2.1 vs IA\n3.IA vs IA");
 		switch (console.readIntInRange(1, 3)) {
@@ -139,7 +134,9 @@ public class Game {
 	/**
 	 * Metodo que reinicia el Tablero y permite cambiar de rol a los jugadores
 	 */
-	public void restart() {
+	private void restart() {
+		Scanner keyboard = new Scanner(System.in);
+		ConsoleInput console = new ConsoleInput(keyboard);
 		board = new Board();
 		System.out.println("Elige: \n1.Elegir Roles \n2.Mismos roles \n3.No jugar más");
 		switch (console.readIntInRange(1, 3)) {

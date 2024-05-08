@@ -300,13 +300,13 @@ public class Board {
 	 * 
 	 * @version 1.0
 	 * @since 1.0
-	 * @param z
-	 * @param w
+	 * @param x
+	 * @param y
 	 * @see #checkMoveKill(int, int)
 	 */
-	private void kill(int z, int w) {
-		BOARD[z][w].returnToken().get().setSquare(null);
-		BOARD[z][w].setToken(null);
+	private void kill(int x, int y) {
+		BOARD[x][y].returnToken().get().setSquare(null);
+		BOARD[x][y].setToken(null);
 	}
 
 	/**

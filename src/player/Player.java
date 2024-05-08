@@ -43,7 +43,7 @@ public abstract class Player {
 	 * @param rol
 	 * @param board
 	 */
-	Player(String rol, Board board) {
+	protected Player(String rol, Board board) {
 		this.rol = rol;
 		this.board = board;
 		numWinned = 0;

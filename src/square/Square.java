@@ -33,7 +33,7 @@ public class Square {
 	/**
 	 * Atributo final que almacena el tipo de la casilla
 	 */
-	private final SquareType type;
+	private final SquareType TYPE;
 
 	/**
 	 * Constante que almacena valor para borrar los colores
@@ -87,11 +87,11 @@ public class Square {
 		}
 
 		if ((x == 0 && y == 0) || (x == 0 && y == 10) || (x == 10 && y == 0) || (x == 10 && y == 10)) {
-			this.type = SquareType.Corner;
+			this.TYPE = SquareType.Corner;
 		} else if (x == 5 && y == 5) {
-			this.type = SquareType.Throne;
+			this.TYPE = SquareType.Throne;
 		} else {
-			this.type = SquareType.Normal;
+			this.TYPE = SquareType.Normal;
 		}
 	}
 
@@ -103,7 +103,7 @@ public class Square {
 	public Square(Square square) {
 		this.token = square.returnToken().orElse(null);
 		this.POSITION = square.POSITION;
-		this.type = square.type;
+		this.TYPE = square.TYPE;
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Square {
 	 * @return tipo
 	 */
 	public SquareType getType() {
-		return type;
+		return TYPE;
 	}
 
 	/**
@@ -142,9 +142,9 @@ public class Square {
 	 */
 	public String draw() {
 		if (returnToken().isEmpty()) {
-			return String.format("%s%s ♜ %s|", type.getColor(), type.getColor2(), RESET);
+			return String.format("%s%s ♜ %s|", TYPE.getColor(), TYPE.getColor2(), RESET);
 		} else {
-			return String.format("%s %s %s|", type.getColor(), token.draw(), RESET);
+			return String.format("%s %s %s|", TYPE.getColor(), token.draw(), RESET);
 		}
 	}
 
@@ -175,7 +175,7 @@ public class Square {
 	 */
 	@Override
 	public int hashCode() {
-		return Objects.hash(POSITION, token, type);
+		return Objects.hash(POSITION, token, TYPE);
 	}
 
 	/**
@@ -188,7 +188,7 @@ public class Square {
 		if (!(obj instanceof Square))
 			return false;
 		Square other = (Square) obj;
-		return Objects.equals(POSITION, other.POSITION) && Objects.equals(token, other.token) && type == other.type;
+		return Objects.equals(POSITION, other.POSITION) && Objects.equals(token, other.token) && TYPE == other.TYPE;
 	}
 
 }
