@@ -8,65 +8,26 @@ import square.Square;
 import square.SquareType;
 import token.TokenType;
 
-/**
- * La clase Movement representa un movimiento. Su proposito es comprobar movimientos validos y almacenar movimientos.
- * Proporciona metodos para comprobar movimientos validos y acceder a las casillas de los movimientos.
- * 
- * @author César
- * @version 1.0
- * @since 1.0
- * @see Board
- */
 public class Movement {
 
-	/**
-	 * Variable que guarda la casilla de origen
-	 */
 	private Square squareO;
-	
-	/**
-	 * Variable que guarda la casilla de destino
-	 */
 	private Square squareD;
-	
-	/**
-	 * Variable que guarda un mapa de movimientos validos posibles
-	 */
 	private SortedMap<Integer, Movement> moValid = new TreeMap<>();
 
-	/**
-	 * Constructor de Movement sin parametros
-	 */
 	public Movement() {
+		
 	}
 	
-	/**
-	 * Constructor de Movement con un parametro
-	 *
-	 * @param squareO
-	 */
 	public Movement(Square squareO) {
 		this.squareO = squareO;
 	}
 
-	/**
-	 * Constructor de Movement con dos parametros
-	 * @param squareO
-	 * @param squareD
-	 */
 	public Movement(Square squareO, Square squareD) {
 		this.squareO = squareO;
 		this.squareD = squareD;
 
 	}
 
-	/**
-	 * Metodo que devuelve una lista de movimientos validos para una determinada ficha
-	 * @param BOARD
-	 * @param x
-	 * @param y
-	 * @return Lista de movimientos validos
-	 */
 	public SortedMap<Integer, Movement> movementList(Square[][] BOARD, int x, int y) {
 		int index = 0;
 		boolean stay;
@@ -127,33 +88,19 @@ public class Movement {
 		return moValid;
 	}
 
-	/**
-	 * Obtiene la casilla de destino
-	 * @return casilla de destino
-	 */
 	public Square getSquareD() {
 		return squareD;
 	}
 	
-	/**
-	 * Obtiene la casilla de origen
-	 * @return casilla de origen
-	 */
 	public Square getSquareO() {
 		return squareO;
 	}
 
-	/**
-	 * Devuelve el valor hash code para Movimiento
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(squareD, squareO);
 	}
 
-	/**
-	 * Compara el objeto especificado con este Movimiento para ver si son iguales
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -166,5 +113,44 @@ public class Movement {
 		return Objects.equals(squareD, other.squareD) && Objects.equals(squareO, other.squareO);
 	}
 
-
+//	private Direction moveDirection(){
+//		String direction;
+//		System.out.println("Elige una direción en la que mover la ficha");
+//		direction = console.readString();
+//		if(Direction.valueOf(direction)==Direction.Down) {
+//			return Direction.Down;
+//		}
+//		else if(Direction.valueOf(direction)==Direction.Up) {
+//			return Direction.Up;
+//		}
+//		else if(Direction.valueOf(direction)==Direction.Left) {
+//			return Direction.Left;
+//		}
+//		else if(Direction.valueOf(direction)==Direction.Right) {
+//			return Direction.Right;
+//		}
+//		else {
+//			System.out.println("No es una direccion");
+//			return moveDirection();
+//		}
+//	}
+//
+//	private int numMove(Direction direction) {
+//		int p;
+//		System.out.println("Elige numero de casillas a mover:");
+//		p = console.readIntInRange(1, 10);
+//		if(direction.getAxis() == 'x') {
+//			if( squareO.getPosition().getX() - p < 0 || squareO.getPosition().getX() + p > 11) {
+//				System.out.println("Movimiento fuera de rango valido");
+//				p = numMove(direction);
+//			}
+//		}
+//		else if(direction.getAxis() == 'y') {
+//			if( squareO.getPosition().getY() - p < 0 || squareO.getPosition().getY() + p > 11) {			
+//				System.out.println("Movimiento fuera de rango valido");
+//				p = numMove(direction);
+//			}
+//		}
+//		return p;
+//	}
 }
