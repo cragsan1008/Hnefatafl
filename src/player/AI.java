@@ -43,6 +43,11 @@ public class AI extends Player {
 		Optional<Token> token;
 		SortedMap<Integer, Movement> moveOptions = new TreeMap<>();
 		SortedMap<Integer, Movement> moves;
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		for (int i = 0; i < BOARD.length; i++) {
 			for (int j = 0; j < BOARD[i].length; j++) {
 				token = BOARD[i][j].returnToken();
