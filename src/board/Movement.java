@@ -9,8 +9,10 @@ import square.SquareType;
 import token.TokenType;
 
 /**
- * La clase Movement representa un movimiento. Su proposito es comprobar movimientos validos y almacenar movimientos.
- * Proporciona metodos para comprobar movimientos validos y acceder a las casillas de los movimientos.
+ * La clase Movement representa un movimiento. Su proposito es comprobar
+ * movimientos validos y almacenar movimientos. Proporciona metodos para
+ * comprobar movimientos validos y acceder a las casillas de los movimientos.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0
@@ -22,12 +24,12 @@ public class Movement {
 	 * Variable que guarda la casilla de origen
 	 */
 	private Square squareO;
-	
+
 	/**
 	 * Variable que guarda la casilla de destino
 	 */
 	private Square squareD;
-	
+
 	/**
 	 * Variable que guarda un mapa de movimientos validos posibles
 	 */
@@ -38,7 +40,7 @@ public class Movement {
 	 */
 	public Movement() {
 	}
-	
+
 	/**
 	 * Constructor de Movement con un parametro
 	 *
@@ -50,6 +52,7 @@ public class Movement {
 
 	/**
 	 * Constructor de Movement con dos parametros
+	 * 
 	 * @param squareO
 	 * @param squareD
 	 */
@@ -60,7 +63,9 @@ public class Movement {
 	}
 
 	/**
-	 * Metodo que devuelve una lista de movimientos validos para una determinada ficha
+	 * Metodo que devuelve una lista de movimientos validos para una determinada
+	 * ficha
+	 * 
 	 * @param BOARD
 	 * @param x
 	 * @param y
@@ -73,53 +78,49 @@ public class Movement {
 
 		stay = true;
 		for (int i = x - 1; i >= 0 && stay; i--) {
-			if (BOARD[i][y].returnToken().isEmpty() &&( BOARD[i][y].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King  )) {
+			if (BOARD[i][y].returnToken().isEmpty() && (BOARD[i][y].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
 				index++;
-			}
-			else if(BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+			} else if (BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
 				stay = true;
-			}
-			else {
+			} else {
 				stay = false;
 			}
 		}
 		stay = true;
 		for (int i = x + 1; i <= 10 && stay; i++) {
-			if (BOARD[i][y].returnToken().isEmpty() &&( BOARD[i][y].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+			if (BOARD[i][y].returnToken().isEmpty() && (BOARD[i][y].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[i][y]));
 				index++;
-			}
-			else if(BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+			} else if (BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
 				stay = true;
-			} 
-			else {
+			} else {
 				stay = false;
 			}
 		}
 		stay = true;
 		for (int i = y - 1; i >= 0 && stay; i--) {
-			if (BOARD[x][i].returnToken().isEmpty() &&( BOARD[x][i].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+			if (BOARD[x][i].returnToken().isEmpty() && (BOARD[x][i].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
 				index++;
-			}
-			else if(BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
+			} else if (BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
 				stay = true;
-			} 
-			else {
+			} else {
 				stay = false;
 			}
 		}
 		stay = true;
 		for (int i = y + 1; i <= 10 && stay; i++) {
-			if (BOARD[x][i].returnToken().isEmpty() &&( BOARD[x][i].getType() == SquareType.Normal || BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+			if (BOARD[x][i].returnToken().isEmpty() && (BOARD[x][i].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
 				moValid.put(index, new Movement(this.squareO, BOARD[x][i]));
 				index++;
-			}
-			else if(BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
+			} else if (BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
 				stay = true;
-			}  
-			else {
+			} else {
 				stay = false;
 			}
 		}
@@ -128,14 +129,16 @@ public class Movement {
 
 	/**
 	 * Obtiene la casilla de destino
+	 * 
 	 * @return casilla de destino
 	 */
 	public Square getSquareD() {
 		return squareD;
 	}
-	
+
 	/**
 	 * Obtiene la casilla de origen
+	 * 
 	 * @return casilla de origen
 	 */
 	public Square getSquareO() {
@@ -164,6 +167,5 @@ public class Movement {
 		Movement other = (Movement) obj;
 		return Objects.equals(squareD, other.squareD) && Objects.equals(squareO, other.squareO);
 	}
-
 
 }

@@ -14,8 +14,10 @@ import square.SquareType;
 import token.TokenType;
 
 /**
- * La clase Game representa una partida. Su proposito es empezar las partidas y reiniciar la partida.
- * Proporciona metodos para empezar la partida y reiniciar la partida.
+ * La clase Game representa una partida. Su proposito es empezar las partidas y
+ * reiniciar la partida. Proporciona metodos para empezar la partida y reiniciar
+ * la partida.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0
@@ -38,14 +40,15 @@ public class Game {
 	/**
 	 * Variable que guarda el Scanner que tiene el input
 	 */
-	Scanner keyboard = new Scanner(System.in);
+	private Scanner keyboard = new Scanner(System.in);
 	/**
 	 * Variable que guarda el ConsoleInput
 	 */
-	ConsoleInput console = new ConsoleInput(keyboard);
+	private ConsoleInput console = new ConsoleInput(keyboard);
 
 	/**
-	 * Constructor del juego donde nos dan opciones tal como elegir los jugadores y sus roles
+	 * Constructor del juego donde nos dan opciones tal como elegir los jugadores y
+	 * sus roles
 	 */
 	Game() {
 		board = new Board();
@@ -122,15 +125,17 @@ public class Game {
 				board.move(playerTwo);
 			}
 			if (playerOne.isWinner()) {
-				System.out.printf("Gana el jugador 1 \nHa ganado %d %s\n", playerOne.getNumWinned(), playerOne.getNumWinned()>1?"partidas":"partida" );
+				System.out.printf("Gana el jugador 1 \nHa ganado %d %s\n", playerOne.getNumWinned(),
+						playerOne.getNumWinned() > 1 ? "partidas" : "partida");
 			} else if (playerTwo.isWinner()) {
-				System.out.printf("Gana el jugador 2 \nHa ganado %d %s\n", playerTwo.getNumWinned(), playerTwo.getNumWinned()>1?"partidas":"partida");
+				System.out.printf("Gana el jugador 2 \nHa ganado %d %s\n", playerTwo.getNumWinned(),
+						playerTwo.getNumWinned() > 1 ? "partidas" : "partida");
 
 			}
 		}
 		restart();
 	}
-	
+
 	/**
 	 * Metodo que reinicia el Tablero y permite cambiar de rol a los jugadores
 	 */
@@ -154,7 +159,7 @@ public class Game {
 		case 2 -> {
 			System.out.println("Sin cambio de roles");
 		}
-		case 3 ->{
+		case 3 -> {
 			return;
 		}
 		default -> {
@@ -164,13 +169,16 @@ public class Game {
 		}
 		}
 		board = new Board();
+		playerOne.resetWin();
+		playerTwo.resetWin();
 		start();
-		
+
 	}
 
 	/**
 	 * Metodo que comprueba el tablero para saber si la partida ha acabado
-	 * @return booleano con el estado de la partida 
+	 * 
+	 * @return booleano con el estado de la partida
 	 */
 	private boolean checkBoard() {
 		int ind1, ind2;
@@ -252,6 +260,5 @@ public class Game {
 		}
 		return false;
 	}
-
 
 }

@@ -6,9 +6,10 @@ import java.util.Optional;
 import square.Square;
 
 /**
- * La clase Token representa cada ficha del ajedrez Vikingo.
- * Se utiliza para almacenar información sobre la ficha y puede almacenar la casilla en la que se encuentra.
- * Proporciona métodos para acceder a la información de la ficha y dibujar la ficha.
+ * La clase Token representa cada ficha del ajedrez Vikingo. Se utiliza para
+ * almacenar información sobre la ficha y puede almacenar la casilla en la que
+ * se encuentra. Proporciona métodos para acceder a la información de la ficha y
+ * dibujar la ficha.
  * 
  * @author César
  * @version 1.0
@@ -16,31 +17,32 @@ import square.Square;
  * @see Square
  */
 public class Token {
-	
+
 	/**
 	 * Atributo en el que se almacena la casilla en la que se encuentra la ficha.
 	 */
 	private Square square;
-	
+
 	/**
 	 * Atributo en el que se almacena el tipo de la ficha.
 	 */
 	private TokenType type;
-	
+
 	/**
-	 * Constructor de la clase Token. 
+	 * Constructor de la clase Token.
 	 * 
 	 * @param square Casilla en la que se encuentra la ficha
-	 * @param type Tipo de la ficha
+	 * @param type   Tipo de la ficha
 	 */
-	public Token(Square square, TokenType type){
+	public Token(Square square, TokenType type) {
 		this.square = square;
 		this.type = type;
 	}
-	
+
 	/**
 	 * Obtiene un Optional de la casilla de la ficha
-	 * @return Optional<Square> de casilla
+	 * 
+	 * @return Optional de casilla
 	 */
 	public Optional<Square> returnSquare() {
 		Optional<Square> optSquare;
@@ -56,7 +58,7 @@ public class Token {
 	public TokenType getType() {
 		return type;
 	}
-	
+
 	/**
 	 * Devuelve el String de la representación grafica de la ficha
 	 * 
@@ -64,18 +66,30 @@ public class Token {
 	 */
 	public String draw() {
 		return String.format("%s%s", this.getType().getColor(), this.getType().getShape());
-		
+
 	}
-	
+
+	/**
+	 * Establece la casilla
+	 * 
+	 * @param square
+	 */
 	public void setSquare(Square square) {
 		this.square = square;
 	}
 
+	/**
+	 * Devuelve el valor hash code para Ficha
+	 * 
+	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(square, type);
 	}
 
+	/**
+	 * Compara el objeto especificado con esta Ficha para ver si son iguales
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,6 +99,5 @@ public class Token {
 		Token other = (Token) obj;
 		return Objects.equals(square, other.square) && type == other.type;
 	}
-	
-	
+
 }

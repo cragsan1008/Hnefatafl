@@ -185,9 +185,9 @@ public class Board {
 								}
 
 							}
-						}
-						else if(BOARD[x][y-2].getType() != SquareType.Normal && BOARD[x][y - 1].returnToken().get().getType() != TokenType.King) {
-							kill(x, y -1);
+						} else if (BOARD[x][y - 2].getType() != SquareType.Normal
+								&& BOARD[x][y - 1].returnToken().get().getType() != TokenType.King) {
+							kill(x, y - 1);
 						}
 					}
 				}
@@ -207,9 +207,9 @@ public class Board {
 
 								}
 							}
-						}
-						else if(BOARD[x][y+2].getType() != SquareType.Normal && BOARD[x][y + 1].returnToken().get().getType() != TokenType.King) {
-							kill(x, y+1);
+						} else if (BOARD[x][y + 2].getType() != SquareType.Normal
+								&& BOARD[x][y + 1].returnToken().get().getType() != TokenType.King) {
+							kill(x, y + 1);
 						}
 					}
 				}
@@ -219,7 +219,8 @@ public class Board {
 			if (BOARD[x - 1][y].returnToken().isPresent()) {
 				if (x - 2 != -1) {
 					if (BOARD[x - 1][y].returnToken().get().getType() != BOARD[x][y].returnToken().get().getType()
-							&& (BOARD[x - 2][y].returnToken().isPresent() || BOARD[x - 2][y].getType() != SquareType.Normal)) {
+							&& (BOARD[x - 2][y].returnToken().isPresent()
+									|| BOARD[x - 2][y].getType() != SquareType.Normal)) {
 						if (BOARD[x - 2][y].returnToken().isPresent()) {
 							if (BOARD[x - 2][y].returnToken().get().getType() == BOARD[x][y].returnToken().get()
 									.getType() || BOARD[x - 2][y].getType() != SquareType.Normal) {
@@ -228,8 +229,8 @@ public class Board {
 
 								}
 							}
-						}
-						else if(BOARD[x - 2][y].getType() != SquareType.Normal && BOARD[x - 1][y].returnToken().get().getType() != TokenType.King) {
+						} else if (BOARD[x - 2][y].getType() != SquareType.Normal
+								&& BOARD[x - 1][y].returnToken().get().getType() != TokenType.King) {
 							kill(x - 1, y);
 						}
 
@@ -252,8 +253,8 @@ public class Board {
 
 								}
 							}
-						}
-						else if(BOARD[x + 2][y].getType() != SquareType.Normal && BOARD[x + 1][y].returnToken().get().getType() != TokenType.King) {
+						} else if (BOARD[x + 2][y].getType() != SquareType.Normal
+								&& BOARD[x + 1][y].returnToken().get().getType() != TokenType.King) {
 							kill(x + 1, y);
 						}
 					}
@@ -266,6 +267,7 @@ public class Board {
 	/**
 	 * Metodo que compruebe si el rey puede morir por el movimiento realizado, si es
 	 * asi, llama a otro metodo para matarlo
+	 * 
 	 * @version 1.0
 	 * @since 2.0
 	 * @param x
@@ -309,6 +311,7 @@ public class Board {
 
 	/**
 	 * Metodo que dibuja el ultimo movimiento de manera resaltada
+	 * 
 	 * @version 1.0
 	 * @since 2.0
 	 * @param move
@@ -359,6 +362,7 @@ public class Board {
 
 	/**
 	 * Metodo que dibuja los posibles movimientos de una ficha
+	 * 
 	 * @version 1.0
 	 * @since 2.0
 	 * @param moveList
