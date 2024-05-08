@@ -4,6 +4,7 @@ package token;
  * El enum TokenType contiene los tipos posibles de fichas.
  * Se utiliza para almacenar información independiente de cada tipo de ficha.
  * Proporciona métodos para acceder a la información del tipo.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0

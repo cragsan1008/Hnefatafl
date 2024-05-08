@@ -2,8 +2,17 @@ package player;
 
 import board.Board;
 import board.Movement;
+import game.Game;
 import square.Square;
 
+/**
+ * La clase Hnefatafl representa el juego en si. Su proposito es contener el main y es desde donde se ejecuta el juego.
+ * 
+ * @author César
+ * @version 1.0
+ * @since 1.0
+ * @see Game
+ */
 public abstract class  Player {
 
 	/**

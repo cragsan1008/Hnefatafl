@@ -8,9 +8,18 @@ import java.util.TreeMap;
 import board.Board;
 import board.Movement;
 import console.ConsoleInput;
+import game.Game;
 import square.Position;
 import token.Token;
 
+/**
+ * La clase Hnefatafl representa el juego en si. Su proposito es contener el main y es desde donde se ejecuta el juego.
+ * 
+ * @author César
+ * @version 1.0
+ * @since 1.0
+ * @see Game
+ */
 public class Person extends Player {
 
 	   public Person(String rol, Board Board) {

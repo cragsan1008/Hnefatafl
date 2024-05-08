@@ -266,7 +266,6 @@ public class Board {
 	/**
 	 * Metodo que compruebe si el rey puede morir por el movimiento realizado, si es
 	 * asi, llama a otro metodo para matarlo
-	 * 
 	 * @version 1.0
 	 * @since 2.0
 	 * @param x

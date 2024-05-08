@@ -1,15 +1,12 @@
 package game;
 
-import board.Board;
-
 /**
- * La clase Game representa una partida. Su proposito es empezar las partidas y reiniciar la partida.
- * Proporciona metodos para empezar la partida y reiniciar la partida.
+ * La clase Hnefatafl representa el juego en si. Su proposito es contener el main y es desde donde se ejecuta el juego.
  * 
  * @author César
  * @version 1.0
  * @since 1.0
- * @see Board
+ * @see Game
  */
 public class Hnefatafl {
 

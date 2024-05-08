@@ -4,6 +4,7 @@ package square;
  * El enum SquareType contiene los tipos posibles de casilla.
  * Se utiliza para almacenar información independiente de cada tipo de casilla.
  * Proporciona métodos para acceder a la información del tipo.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0

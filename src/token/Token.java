@@ -9,6 +9,7 @@ import square.Square;
  * La clase Token representa cada ficha del ajedrez Vikingo.
  * Se utiliza para almacenar información sobre la ficha y puede almacenar la casilla en la que se encuentra.
  * Proporciona métodos para acceder a la información de la ficha y dibujar la ficha.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0

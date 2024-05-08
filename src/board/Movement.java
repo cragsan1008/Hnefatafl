@@ -11,7 +11,6 @@ import token.TokenType;
 /**
  * La clase Movement representa un movimiento. Su proposito es comprobar movimientos validos y almacenar movimientos.
  * Proporciona metodos para comprobar movimientos validos y acceder a las casillas de los movimientos.
- * 
  * @author César
  * @version 1.0
  * @since 1.0

@@ -6,6 +6,7 @@ import java.util.Objects;
  * La clase Position representa la posición de una casilla.
  * Almacena la información sobre la posición.
  * Proporciona métodos para acceder a la información de la posición.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0

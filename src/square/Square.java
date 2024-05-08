@@ -11,6 +11,7 @@ import token.TokenType;
  * La clase Square representa cada casilla de tablero.
  * Se utiliza para almacenar información sobre la casilla y puede almacenar una ficha.
  * Proporciona métodos para acceder a la información de la casilla y dibujar la casilla.
+ * 
  * @author César
  * @version 1.0
  * @since 1.0
