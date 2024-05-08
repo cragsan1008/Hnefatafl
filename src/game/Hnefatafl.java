@@ -1,15 +1,20 @@
 package game;
 
-import java.util.Scanner;
-
 import board.Board;
-import console.ConsoleInput;
 
+/**
+ * La clase Game representa una partida. Su proposito es empezar las partidas y reiniciar la partida.
+ * Proporciona metodos para empezar la partida y reiniciar la partida.
+ * 
+ * @author César
+ * @version 1.0
+ * @since 1.0
+ * @see Board
+ */
 public class Hnefatafl {
 
 	public void start(){
 		Game game = new Game();
-		Board board;
 		
 		game.start();
 	}
