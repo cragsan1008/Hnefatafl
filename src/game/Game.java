@@ -44,6 +44,7 @@ public class Game {
 	 * sus roles
 	 */
 	Game() {
+		int time;
 		Scanner keyboard = new Scanner(System.in);
 		ConsoleInput console = new ConsoleInput(keyboard);
 		board = new Board();
@@ -67,11 +68,13 @@ public class Game {
 			switch (console.readIntInRange(1, 2)) {
 			case 1 -> {
 				playerOne = new Person("Defender", board);
-				playerTwo = new AI("Attacker", board);
+				System.out.println("Escribe la velocidad de la IA en milisegundos:");
+				playerTwo = new AI("Attacker", board, console.readInt());
 			}
 			case 2 -> {
 				playerOne = new Person("Attacker", board);
-				playerTwo = new AI("Defender", board);
+				System.out.println("Escribe la velocidad de la IA en milisegundos:");
+				playerTwo = new AI("Defender", board, console.readInt());
 			}
 			}
 		}
@@ -79,12 +82,16 @@ public class Game {
 			System.out.println("Elige rol de la IA1, la IA2 recibira el rol contrario:\n1.Defensor\n2.Atacante");
 			switch (console.readIntInRange(1, 2)) {
 			case 1 -> {
-				playerOne = new AI("Defender", board);
-				playerTwo = new AI("Attacker", board);
+				System.out.println("Escribe la velocidad de la IA en milisegundos:");
+				time = console.readInt();
+				playerOne = new AI("Defender", board, time);
+				playerTwo = new AI("Attacker", board, time);
 			}
 			case 2 -> {
-				playerOne = new AI("Attacker", board);
-				playerTwo = new AI("Defender", board);
+				System.out.println("Escribe la velocidad de la IA en milisegundos:");
+				time = console.readInt();
+				playerOne = new AI("Attacker", board, time);
+				playerTwo = new AI("Defender", board, time);
 			}
 			}
 		}

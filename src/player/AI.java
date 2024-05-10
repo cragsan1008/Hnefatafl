@@ -19,6 +19,9 @@ import token.Token;
  * @see Player
  */
 public class AI extends Player {
+	
+	
+	private int time;
 
 	/**
 	 * ^ Constructor de la clase AI
@@ -26,8 +29,9 @@ public class AI extends Player {
 	 * @param rol
 	 * @param board
 	 */
-	public AI(String rol, Board board) {
+	public AI(String rol, Board board, int time) {
 		super(rol, board);
+		this.time=time;
 	}
 
 	/**
@@ -44,7 +48,7 @@ public class AI extends Player {
 		SortedMap<Integer, Movement> moveOptions = new TreeMap<>();
 		SortedMap<Integer, Movement> moves;
 		try {
-			Thread.sleep(500);
+			Thread.sleep(time);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -69,8 +73,11 @@ public class AI extends Player {
 	 * @return Movimiento elegido
 	 */
 	private Movement chooseBestMove(SortedMap<Integer, Movement> moves) {
-		return moves.values().stream().max(Comparator.comparingInt(this::evaluateMove))
+		
+		Movement move = moves.values().stream().max(Comparator.comparingInt(this::evaluateMove))
 				.orElseThrow(() -> new IllegalStateException("Sin movimientos validos"));
+		
+		return move;
 	}
 
 	/**
@@ -81,6 +88,7 @@ public class AI extends Player {
 	 */
 	private int evaluateMove(Movement move) {
 
+		
 		return (int) (Math.random() * 100);
 	}
 
