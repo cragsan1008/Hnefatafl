@@ -69,12 +69,12 @@ public class Game {
 			case 1 -> {
 				playerOne = new Person("Defender", board);
 				System.out.println("Escribe la velocidad de la IA en milisegundos:");
-				playerTwo = new AI("Attacker", board, console.readInt());
+				playerTwo = new AI("Attacker", board, console.readIntInRange(0, 2000));
 			}
 			case 2 -> {
 				playerOne = new Person("Attacker", board);
 				System.out.println("Escribe la velocidad de la IA en milisegundos:");
-				playerTwo = new AI("Defender", board, console.readInt());
+				playerTwo = new AI("Defender", board, console.readIntInRange(0, 2000));
 			}
 			}
 		}
@@ -83,13 +83,13 @@ public class Game {
 			switch (console.readIntInRange(1, 2)) {
 			case 1 -> {
 				System.out.println("Escribe la velocidad de la IA en milisegundos:");
-				time = console.readInt();
+				time = console.readIntInRange(0, 2000);
 				playerOne = new AI("Defender", board, time);
 				playerTwo = new AI("Attacker", board, time);
 			}
 			case 2 -> {
 				System.out.println("Escribe la velocidad de la IA en milisegundos:");
-				time = console.readInt();
+				time = console.readIntInRange(0, 2000);
 				playerOne = new AI("Attacker", board, time);
 				playerTwo = new AI("Defender", board, time);
 			}
