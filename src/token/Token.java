@@ -84,6 +84,7 @@ public class Token {
 	 */
 	@Override
 	public int hashCode() {
+		//Square genera bucle en el test
 		return Objects.hash(square, type);
 	}
 
