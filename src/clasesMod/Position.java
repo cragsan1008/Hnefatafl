@@ -53,23 +53,18 @@ public class Position {
 		return y;
 	}
 
-	/**
-	 * Devuelve el valor hash code para Posicion
-	 * 
-	 */
 	@Override
 	public int hashCode() {
 		return Objects.hash(x, y);
 	}
 
-	/**
-	 * Compara el objeto especificado con esta Posicion para ver si son iguales
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!(obj instanceof Position))
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
 			return false;
 		Position other = (Position) obj;
 		return x == other.x && y == other.y;

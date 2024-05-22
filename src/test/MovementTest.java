@@ -17,8 +17,8 @@ class MovementTest {
 			"Defender, 3, 3 , 7, 3, D", "Attacker, 5, 0 , 5, 10, A", "Defender, 5, 10 , 5, 0, D",
 			"Attacker, 0, 5 , 10, 5, A", "Defender, 10, 5 , 0, 5, D", "Attacker, 5, 3 , 5, 7, A",
 			"Defender, 7, 5 , 2, 5, D", "Defender, 0, 5 , 0, 10, K", "Defender, 5, 0 , 10, 0, K",
-			"Defender, 5, 0 , 5, 10, K", "Defender, 0, 5 , 10, 5, K","Defender, 3, 3 , 3, 7, K",
-			"Defender, 3, 3 , 7, 3, K"})
+			"Defender, 5, 0 , 5, 10, K", "Defender, 0, 5 , 10, 5, K", "Defender, 3, 3 , 3, 7, K",
+			"Defender, 3, 3 , 7, 3, K" })
 	void moveTest(String rol, int x, int y, int x2, int y2, String ficha) {
 		Board board = BoardCustom(x, y, ficha);
 		Board expectedBoard = BoardCustom(x2, y2, "no");
@@ -34,21 +34,44 @@ class MovementTest {
 
 	@ParameterizedTest
 	@CsvSource({ "Attacker, 5, 4 , 5, 6, A, 5, 6", "Defender, 2, 5 , 3, 5, D, 3, 5", "Attacker, 5, 3 , 5, 6, A, 5, 4",
-	"Defender, 2, 5 , 6, 5, D, 4, 5", "Defender, 5, 3 , 5, 6, A, 2, 2", "Attacker, 2, 5 , 6, 3, A, 2, 2",
-	"Defender, 0, 5 ,0, 10, D, 2, 2", "Attacker, 2, 5 , 5, 5, A, 2, 2", "Defender, 5, 4 , 5, 6, K, 5, 6",
-	"Defender, 2, 5 , 3, 5, K, 3, 5", "Defender, 5, 3 , 5, 6, K, 5, 4", "Defender, 2, 5 , 6, 5, K, 4, 5",
-	"Defender, 2, 5 , 6, 3, K, 2, 2", "Attacker, 5, 3 , 5, 6, K, 2, 2" })
+			"Defender, 2, 5 , 6, 5, D, 4, 5", "Defender, 5, 3 , 5, 6, A, 2, 2", "Attacker, 2, 5 , 6, 3, A, 2, 2",
+			"Defender, 0, 5 ,0, 10, D, 2, 2", "Attacker, 2, 5 , 5, 5, A, 2, 2", "Defender, 5, 4 , 5, 6, K, 5, 6",
+			"Defender, 2, 5 , 3, 5, K, 3, 5", "Defender, 5, 3 , 5, 6, K, 5, 4", "Defender, 2, 5 , 6, 5, K, 4, 5",
+			"Defender, 2, 5 , 6, 3, K, 2, 2", "Attacker, 5, 3 , 5, 6, K, 2, 2" })
 	void moveWrongTest(String rol, int x, int y, int x2, int y2, String ficha, int x3, int y3) {
 		Board board = BoardCustom(x, y, x3, y3, ficha);
-		Board expectedBoard = BoardCustom(x, y, x3, y3, ficha);
+		Board expectedBoard = BoardCustom(x, y, x3, y3, "no");
 		Square[][] b;
 		Person person = new Person(rol, board);
 		b = board.getBOARD();
-		expectedBoard.getBOARD()[x2][y2].setToken(b[x][y].returnToken().get());
+		expectedBoard.getBOARD()[x][y].setToken(b[x][y].returnToken().get());
+		expectedBoard.getBOARD()[x3][y3].setToken(b[x3][y3].returnToken().get());
 
-		assertThrows(IllegalArgumentException.class, () -> board.moveCustom(person, x, y, x2, y2));
 		assertEquals(expectedBoard, board);
+		assertThrows(IllegalArgumentException.class, () -> board.moveCustom(person, x, y, x2, y2));
 
+	}
+
+	@ParameterizedTest
+	@CsvSource({ "Attacker, 3, 3 , 3, 4", "Defender, 5, 5 , 5, 6," })
+	void moveWrongSurroundedOrVoidTest(String rol, int x, int y, int x2, int y2) {
+		Board board = new Board();
+		Board expectedBoard = new Board();
+		Square[][] b;
+		Person person = new Person(rol, board);
+		b = board.getBOARD();
+		for (int i = 0; i < b.length; i++) {
+			for (int j = 0; j < b[i].length; j++) {
+				if (b[i][j].returnToken().isPresent()) {
+					expectedBoard.getBOARD()[i][j].setToken(b[i][j].returnToken().get());
+				}
+
+			}
+
+		}
+
+		assertEquals(expectedBoard, board);
+		assertThrows(IllegalArgumentException.class, () -> board.moveCustom(person, x, y, x2, y2));
 
 	}
 
@@ -74,11 +97,10 @@ class MovementTest {
 				if (i == x && j == y) {
 					board[i][j] = new Square(i, j, ficha);
 
-				}else if (i == x2 && j == y2) {
+				} else if (i == x2 && j == y2) {
 					board[i][j] = new Square(i, j, ficha);
 
-				}
-				 else {
+				} else {
 					board[i][j] = new Square(i, j, "no");
 				}
 			}

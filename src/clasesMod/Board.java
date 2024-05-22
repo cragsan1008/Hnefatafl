@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.SortedMap;
 
-
 /**
  * La clase Board representa un tablero. Su proposito es contruir y almacenar el
  * tablero, permitiendonos recojer la informacion sobre las casillas en un mismo

@@ -3,8 +3,6 @@ package clasesMod;
 import java.util.Objects;
 import java.util.Optional;
 
-
-
 /**
  * La clase Square representa cada casilla de tablero. Se utiliza para almacenar
  * información sobre la casilla y puede almacenar una ficha. Proporciona métodos

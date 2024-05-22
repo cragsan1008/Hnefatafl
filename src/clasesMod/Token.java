@@ -3,7 +3,6 @@ package clasesMod;
 import java.util.Objects;
 import java.util.Optional;
 
-
 /**
  * La clase Token representa cada ficha del ajedrez Vikingo. Se utiliza para
  * almacenar información sobre la ficha y puede almacenar la casilla en la que
@@ -79,7 +78,7 @@ public class Token {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(type);
+		return Objects.hash(square, type);
 	}
 
 	@Override
