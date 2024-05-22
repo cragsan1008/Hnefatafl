@@ -45,10 +45,10 @@ class MovementTest {
 		Person person = new Person(rol, board);
 		b = board.getBOARD();
 		expectedBoard.getBOARD()[x2][y2].setToken(b[x][y].returnToken().get());
-		board.moveCustom(person, x, y, x2, y2);
 
-		assertEquals(expectedBoard, board);
 		assertThrows(IllegalArgumentException.class, () -> board.moveCustom(person, x, y, x2, y2));
+		assertEquals(expectedBoard, board);
+
 
 	}
 
