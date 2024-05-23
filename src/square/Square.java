@@ -163,6 +163,7 @@ public class Square {
 
 	/**
 	 * Establece la ficha de la casilla
+	 * 
 	 * @param token
 	 */
 	public void setToken(Token token) {

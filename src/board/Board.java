@@ -287,8 +287,8 @@ public class Board {
 					if ((BOARD[x][y + 1].returnToken().isPresent()
 							&& BOARD[x][y + 1].returnToken().get().getType() == TokenType.Attacker)
 							|| BOARD[x][y + 1].getType() != SquareType.Normal) {
-						if (BOARD[x][y + 1].returnToken().isPresent() && BOARD[x][y - 1].returnToken().isPresent())
-							kill(x, y);
+						kill(x, y);
+
 					}
 				}
 			}
