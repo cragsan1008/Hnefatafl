@@ -37,7 +37,6 @@ public class Game {
 	 * Variable que guarda el jugador 2
 	 */
 	private Player playerTwo;
-		
 
 	/**
 	 * Constructor del juego donde nos dan opciones tal como elegir los jugadores y
@@ -120,8 +119,8 @@ public class Game {
 			if (unfineshed) {
 				System.out.println("Turno del jugador 1:");
 				board.move(playerOne);
-				unfineshed = checkBoard();
 			}
+			unfineshed = checkBoard();
 			if (unfineshed) {
 				System.out.println("Turno del jugador 2:");
 				board.move(playerTwo);

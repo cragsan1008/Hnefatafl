@@ -133,6 +133,10 @@ public class Board {
 		drawLast(m);
 	}
 
+	public Board returnSelf() {
+		return this;
+	}
+
 	/**
 	 * Metodo que realiza comprobaciones si el movimiento realizado mata y llama a
 	 * otro metodo para que mate en caso de que asi sea, llama a otro metodo si se
@@ -146,7 +150,7 @@ public class Board {
 	 * @see #killKing(int, int)
 	 */
 	private void checkMoveKill(int x, int y) {
-		if (x - 1 >= 0 && y + 1 <= 10 && x + 1 <= 10 && y - 1 >= 0) {
+		if (x - 2 >= 0 && y + 2 <= 10 && x + 2 <= 10 && y - 2 >= 0) {
 			if (BOARD[x + 1][y].returnToken().isPresent()) {
 				if (BOARD[x + 1][y].returnToken().get().getType() == TokenType.King) {
 					killKing(x + 1, y);
