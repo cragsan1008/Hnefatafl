@@ -127,6 +127,15 @@ public abstract class Player {
 		this.winner = winner;
 	}
 
+	public Board getBoard() {
+		return board;
+	}
+
+	public void resetBoard(Board board) {
+		this.board = board;
+		this.BOARD = board.getBOARD();
+	}
+
 	/**
 	 * Metodo abtracto se implememtea en los hijos.
 	 * 

@@ -84,7 +84,7 @@ public class Token {
 	 */
 	@Override
 	public int hashCode() {
-		//Square genera bucle en el test
+		// Square genera bucle en el test
 		return Objects.hash(square, type);
 	}
 
@@ -98,7 +98,7 @@ public class Token {
 		if (!(obj instanceof Token))
 			return false;
 		Token other = (Token) obj;
-		return Objects.equals(square, other.square) && type == other.type;
+		return type == other.type;
 	}
 
 }

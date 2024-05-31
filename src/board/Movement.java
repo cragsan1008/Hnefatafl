@@ -1,5 +1,7 @@
 package board;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -34,6 +36,8 @@ public class Movement implements Comparable<Movement> {
 	 * Variable que guarda un mapa de movimientos validos posibles
 	 */
 	private SortedMap<Integer, Movement> moValid = new TreeMap<>();
+
+	private List<Movement> moValidIA = new ArrayList<>();
 
 	/**
 	 * Constructor de Movement sin parametros
@@ -125,6 +129,57 @@ public class Movement implements Comparable<Movement> {
 			}
 		}
 		return moValid;
+	}
+
+	public List<Movement> movementListIA(Square[][] BOARD, int x, int y) {
+		boolean stay;
+		squareO = BOARD[x][y];
+
+		stay = true;
+		for (int i = x - 1; i >= 0 && stay; i--) {
+			if (BOARD[i][y].returnToken().isEmpty() && (BOARD[i][y].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+				moValidIA.add(new Movement(this.squareO, BOARD[i][y]));
+			} else if (BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+				stay = true;
+			} else {
+				stay = false;
+			}
+		}
+		stay = true;
+		for (int i = x + 1; i <= 10 && stay; i++) {
+			if (BOARD[i][y].returnToken().isEmpty() && (BOARD[i][y].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+				moValidIA.add(new Movement(this.squareO, BOARD[i][y]));
+			} else if (BOARD[i][y].returnToken().isEmpty() && BOARD[i][y].getType() == SquareType.Throne) {
+				stay = true;
+			} else {
+				stay = false;
+			}
+		}
+		stay = true;
+		for (int i = y - 1; i >= 0 && stay; i--) {
+			if (BOARD[x][i].returnToken().isEmpty() && (BOARD[x][i].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+				moValidIA.add(new Movement(this.squareO, BOARD[x][i]));
+			} else if (BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
+				stay = true;
+			} else {
+				stay = false;
+			}
+		}
+		stay = true;
+		for (int i = y + 1; i <= 10 && stay; i++) {
+			if (BOARD[x][i].returnToken().isEmpty() && (BOARD[x][i].getType() == SquareType.Normal
+					|| BOARD[x][y].returnToken().get().getType() == TokenType.King)) {
+				moValidIA.add(new Movement(this.squareO, BOARD[x][i]));
+			} else if (BOARD[x][i].returnToken().isEmpty() && BOARD[x][i].getType() == SquareType.Throne) {
+				stay = true;
+			} else {
+				stay = false;
+			}
+		}
+		return moValidIA;
 	}
 
 	/**

@@ -119,8 +119,8 @@ public class Game {
 			if (unfineshed) {
 				System.out.println("Turno del jugador 1:");
 				board.move(playerOne);
+				unfineshed = checkBoard();
 			}
-			unfineshed = checkBoard();
 			if (unfineshed) {
 				System.out.println("Turno del jugador 2:");
 				board.move(playerTwo);
@@ -143,7 +143,7 @@ public class Game {
 	private void restart() {
 		Scanner keyboard = new Scanner(System.in);
 		ConsoleInput console = new ConsoleInput(keyboard);
-		board = new Board();
+
 		System.out.println("Elige: \n1.Elegir Roles \n2.Mismos roles \n3.No jugar más");
 		switch (console.readIntInRange(1, 3)) {
 		case 1 -> {
@@ -171,7 +171,10 @@ public class Game {
 			return;
 		}
 		}
+
 		board = new Board();
+		playerOne.resetBoard(board);
+		playerTwo.resetBoard(board);
 		playerOne.resetWin();
 		playerTwo.resetWin();
 		start();
@@ -245,7 +248,6 @@ public class Game {
 							return false;
 
 						}
-						return false;
 					}
 
 				}

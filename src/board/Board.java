@@ -150,25 +150,33 @@ public class Board {
 	 * @see #killKing(int, int)
 	 */
 	private void checkMoveKill(int x, int y) {
-		if (x - 2 >= 0 && y + 2 <= 10 && x + 2 <= 10 && y - 2 >= 0) {
-			if (BOARD[x + 1][y].returnToken().isPresent()) {
-				if (BOARD[x + 1][y].returnToken().get().getType() == TokenType.King) {
-					killKing(x + 1, y);
+		if (x - 1 >= 0 && y + 1 <= 10 && x + 1 <= 10 && y - 1 >= 0) {
+			if (x + 2 <= 10) {
+				if (BOARD[x + 1][y].returnToken().isPresent()) {
+					if (BOARD[x + 1][y].returnToken().get().getType() == TokenType.King) {
+						killKing(x + 1, y);
+					}
 				}
 			}
-			if (BOARD[x - 1][y].returnToken().isPresent()) {
-				if (BOARD[x - 1][y].returnToken().get().getType() == TokenType.King) {
-					killKing(x - 1, y);
+			if (x - 2 >= 0) {
+				if (BOARD[x - 1][y].returnToken().isPresent()) {
+					if (BOARD[x - 1][y].returnToken().get().getType() == TokenType.King) {
+						killKing(x - 1, y);
+					}
 				}
 			}
-			if (BOARD[x][y + 1].returnToken().isPresent()) {
-				if (BOARD[x][y + 1].returnToken().get().getType() == TokenType.King) {
-					killKing(x, y + 1);
+			if (y + 2 <= 10) {
+				if (BOARD[x][y + 1].returnToken().isPresent()) {
+					if (BOARD[x][y + 1].returnToken().get().getType() == TokenType.King) {
+						killKing(x, y + 1);
+					}
 				}
 			}
-			if (BOARD[x][y - 1].returnToken().isPresent()) {
-				if (BOARD[x][y - 1].returnToken().get().getType() == TokenType.King) {
-					killKing(x, y - 1);
+			if (y - 2 >= 0) {
+				if (BOARD[x][y - 1].returnToken().isPresent()) {
+					if (BOARD[x][y - 1].returnToken().get().getType() == TokenType.King) {
+						killKing(x, y - 1);
+					}
 				}
 			}
 		}

@@ -1,15 +1,16 @@
 package player;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Queue;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
 import board.Board;
 import board.Movement;
 import square.Square;
+import square.SquareType;
 import token.Token;
 import token.TokenType;
 
@@ -53,8 +54,8 @@ public class AI extends Player {
 		this.board = board.returnSelf();
 		Movement move;
 		Optional<Token> token;
-		SortedMap<Integer, Movement> moveOptions = new TreeMap<>();
-		SortedMap<Integer, Movement> moves;
+		List<Movement> moveOptions = new ArrayList<>();
+		List<Movement> moves;
 		Movement bestMove;
 		this.BOARD = board.getBOARD();
 
@@ -74,26 +75,26 @@ public class AI extends Player {
 							|| currentToken.getType() == TokenType.Attacker && rol.equals("Attacker")) {
 
 						move = new Movement(BOARD[i][j]);
-						moves = move.movementList(BOARD, i, j);
-						moveOptions.putAll(moves);
+						moves = move.movementListIA(BOARD, i, j);
+						moveOptions.addAll(moves);
 					}
 				}
 			}
 		}
 
 		if (rol.equals("Attacker")) {
-			bestMove = chooseBestMoveAttack(moveOptions);
+			bestMove = chooseBestMoveAttack(moveOptions).get();
 		} else {
-			bestMove = chooseBestMoveDefend(moveOptions);
+			bestMove = chooseBestMoveDefend(moveOptions).get();
 		}
 
 		// Evitar movimientos repetidos
 		if (lastMoves.contains(bestMove)) {
-			moveOptions.values().removeIf(lastMoves::contains);
+			moveOptions.removeIf(lastMoves::contains);
 			if (rol.equals("Attacker")) {
-				bestMove = chooseBestMoveAttack(moveOptions);
+				bestMove = chooseBestMoveAttack(moveOptions).get();
 			} else {
-				bestMove = chooseBestMoveDefend(moveOptions);
+				bestMove = chooseBestMoveDefend(moveOptions).get();
 			}
 		}
 
@@ -106,18 +107,14 @@ public class AI extends Player {
 		return bestMove;
 	}
 
-	private Movement chooseBestMoveAttack(SortedMap<Integer, Movement> moves) {
-		return moves.values().stream()
-				.max(Comparator.comparingInt(this::killingConditionKing).thenComparing(this::getCloseKing)
-						.thenComparing(this::killingCondition).thenComparing(this::getClose)
-						.thenComparing(this::randomMove))
-				.orElseGet(() -> this.lastResource());
+	private Optional<Movement> chooseBestMoveAttack(List<Movement> moves) {
+		return moves.stream().max(Comparator.comparingInt(this::killingConditionKing).thenComparing(this::getCloseKing)
+				.thenComparing(this::killingCondition).thenComparing(this::getClose).thenComparing(this::randomMove));
 	}
 
-	private Movement chooseBestMoveDefend(SortedMap<Integer, Movement> moves) {
-		return moves.values().stream().max(Comparator.comparingInt(this::escapeCondition).thenComparing(this::goBorder)
-				.thenComparing(this::killingCondition).thenComparing(this::getClose).thenComparing(this::randomMove))
-				.orElseGet(() -> this.lastResource());
+	private Optional<Movement> chooseBestMoveDefend(List<Movement> moves) {
+		return moves.stream().max(Comparator.comparingInt(this::escapeCondition).thenComparing(this::goBorder)
+				.thenComparing(this::killingCondition).thenComparing(this::getClose).thenComparing(this::randomMove));
 	}
 
 	private int getClose(Movement move) {
@@ -229,12 +226,10 @@ public class AI extends Player {
 		int z = o.getPosition().getY();
 
 		if (BOARD[w][z].returnToken().get().getType() == TokenType.King) {
-			if (x == 0 || x == 10 || y == 0 || y == 10) {
-				for (int i = 0; i < 11; i++) {
-					if ((x == i || y == i) && BOARD[x][y].returnToken().isPresent()) {
-						return 1;
-					}
-				}
+			if (BOARD[x][y].getType() == SquareType.Throne) {
+
+				return 1;
+
 			}
 		}
 		return 0;
@@ -283,60 +278,4 @@ public class AI extends Player {
 		return (int) (Math.random() * 100);
 	}
 
-	private Movement lastResource() {
-		this.board = board.returnSelf();
-		Movement move;
-		Optional<Token> token;
-		SortedMap<Integer, Movement> moveOptions = new TreeMap<>();
-		SortedMap<Integer, Movement> moves;
-		Movement bestMove;
-		this.BOARD = board.getBOARD();
-
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-
-		for (int i = 0; i < BOARD.length; i++) {
-			for (int j = 0; j < BOARD[i].length; j++) {
-				token = BOARD[i][j].returnToken();
-				if (token.isPresent()) {
-					Token currentToken = token.get();
-					if (currentToken.getType() == TokenType.King && rol.equals("Defender")
-							|| currentToken.getType() == TokenType.Defender && rol.equals("Defender")
-							|| currentToken.getType() == TokenType.Attacker && rol.equals("Attacker")) {
-
-						move = new Movement(BOARD[i][j]);
-						moves = move.movementList(BOARD, i, j);
-						moveOptions.putAll(moves);
-					}
-				}
-			}
-		}
-
-		if (rol.equals("Attacker")) {
-			bestMove = chooseBestMoveAttack(moveOptions);
-		} else {
-			bestMove = chooseBestMoveDefend(moveOptions);
-		}
-
-		// Evitar movimientos repetidos
-		if (lastMoves.contains(bestMove)) {
-			moveOptions.values().removeIf(lastMoves::contains);
-			if (rol.equals("Attacker")) {
-				bestMove = chooseBestMoveAttack(moveOptions);
-			} else {
-				bestMove = chooseBestMoveDefend(moveOptions);
-			}
-		}
-
-		// Actualizar el historial de movimientos
-		if (lastMoves.size() >= MAX_HISTORY) {
-			lastMoves.poll();
-		}
-		lastMoves.add(bestMove);
-
-		return bestMove;
-	}
 }
