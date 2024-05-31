@@ -12,7 +12,7 @@ import java.util.Objects;
  * @since 1.0
  * @see Square
  */
-public class Position {
+public class Position implements Comparable<Position> {
 
 	/**
 	 * Uno de los atributos de la clase Position que representa el eje x
@@ -73,6 +73,15 @@ public class Position {
 			return false;
 		Position other = (Position) obj;
 		return x == other.x && y == other.y;
+	}
+
+	@Override
+	public int compareTo(Position other) {
+		int cmp = Integer.compare(this.x, other.x);
+		if (cmp != 0) {
+			return cmp;
+		}
+		return Integer.compare(this.y, other.y);
 	}
 
 }

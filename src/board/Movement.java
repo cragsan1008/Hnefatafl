@@ -18,7 +18,7 @@ import token.TokenType;
  * @since 1.0
  * @see Board
  */
-public class Movement {
+public class Movement implements Comparable<Movement> {
 
 	/**
 	 * Variable que guarda la casilla de origen
@@ -166,6 +166,16 @@ public class Movement {
 			return false;
 		Movement other = (Movement) obj;
 		return Objects.equals(squareD, other.squareD) && Objects.equals(squareO, other.squareO);
+	}
+
+	@Override
+	public int compareTo(Movement other) {
+		// Comparación basada en las posiciones de las casillas origen y destino
+		int compareOrigin = this.squareO.getPosition().compareTo(other.squareO.getPosition());
+		if (compareOrigin != 0) {
+			return compareOrigin;
+		}
+		return this.squareD.getPosition().compareTo(other.squareD.getPosition());
 	}
 
 }
