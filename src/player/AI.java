@@ -200,13 +200,13 @@ public class AI extends Player {
 	private int checkKillingMove(int x, int y) {
 		int counter = 0;
 
-		if (x > 0 && y > 1 && isKillingMove(x, y - 1, x, y - 2))
+		if (x >= 0 && y > 1 && isKillingMove(x, y - 1, x, y - 2))
 			counter++;
-		if (x < 10 && y < 9 && isKillingMove(x, y + 1, x, y + 2))
+		if (x <= 10 && y < 9 && isKillingMove(x, y + 1, x, y + 2))
 			counter++;
-		if (x > 1 && y > 0 && isKillingMove(x - 1, y, x - 2, y))
+		if (x > 1 && y >= 0 && isKillingMove(x - 1, y, x - 2, y))
 			counter++;
-		if (x < 9 && y < 10 && isKillingMove(x + 1, y, x + 2, y))
+		if (x < 9 && y <= 10 && isKillingMove(x + 1, y, x + 2, y))
 			counter++;
 
 		return counter;
@@ -214,7 +214,7 @@ public class AI extends Player {
 
 	private boolean isKillingMove(int x1, int y1, int x2, int y2) {
 		return BOARD[x1][y1].returnToken().isPresent() && BOARD[x2][y2].returnToken().isPresent()
-				&& BOARD[x1][y1].returnToken().get().getType() == BOARD[x2][y2].returnToken().get().getType();
+				&& BOARD[x1][y1].returnToken().get().getType() != BOARD[x2][y2].returnToken().get().getType();
 	}
 
 	private int escapeCondition(Movement move) {
@@ -227,9 +227,7 @@ public class AI extends Player {
 
 		if (BOARD[w][z].returnToken().get().getType() == TokenType.King) {
 			if (BOARD[x][y].getType() == SquareType.Throne) {
-
 				return 1;
-
 			}
 		}
 		return 0;
@@ -244,10 +242,12 @@ public class AI extends Player {
 		int z = o.getPosition().getY();
 
 		if (BOARD[w][z].returnToken().get().getType() == TokenType.King) {
-			if (x == 0 || x == 10 || y == 0 || y == 10) {
+			if ((x == 0 || x == 10) && (y == 0 || y == 10)) {
 				for (int i = 0; i < 11; i++) {
-					if ((x == i || y == i) && BOARD[x][y].returnToken().isPresent()) {
-						return 0;
+					for (int j = 0; i < 11; i++) {
+						if ((x == i || y == i) && BOARD[i][j].returnToken().isPresent()) {
+							return 0;
+						}
 					}
 				}
 			}
@@ -261,7 +261,18 @@ public class AI extends Player {
 		int y = d.getPosition().getY();
 		int counter = 0;
 
-		counter += checkKillKing(x, y);
+		if (x >= 0 && y > 1) {
+			counter += checkKillKing(x, y - 1);
+		}
+		if (x <= 10 && y < 9) {
+			counter += checkKillKing(x, y + 1);
+		}
+		if (y >= 0 && x > 1) {
+			counter += checkKillKing(x - 1, y);
+		}
+		if (y <= 10 && x < 9) {
+			counter += checkKillKing(x + 1, y);
+		}
 
 		return counter;
 	}

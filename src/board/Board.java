@@ -150,7 +150,7 @@ public class Board {
 	 * @see #killKing(int, int)
 	 */
 	private void checkMoveKill(int x, int y) {
-		if (x - 1 >= 0 && y + 1 <= 10 && x + 1 <= 10 && y - 1 >= 0) {
+		if (x >= 0 && y <= 10 && x <= 10 && y >= 0) {
 			if (x + 2 <= 10) {
 				if (BOARD[x + 1][y].returnToken().isPresent()) {
 					if (BOARD[x + 1][y].returnToken().get().getType() == TokenType.King) {
