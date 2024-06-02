@@ -287,20 +287,22 @@ public class Board {
 	 * @see #checkMoveKill(int, int)
 	 */
 	private void killKing(int x, int y) {
-		if ((BOARD[x - 1][y].returnToken().isPresent()
-				&& BOARD[x - 1][y].returnToken().get().getType() == TokenType.Attacker)
-				|| BOARD[x - 1][y].getType() != SquareType.Normal) {
-			if ((BOARD[x + 1][y].returnToken().isPresent()
-					&& BOARD[x + 1][y].returnToken().get().getType() == TokenType.Attacker)
-					|| BOARD[x + 1][y].getType() != SquareType.Normal) {
-				if ((BOARD[x][y - 1].returnToken().isPresent()
-						&& BOARD[x][y - 1].returnToken().get().getType() == TokenType.Attacker)
-						|| BOARD[x][y - 1].getType() != SquareType.Normal) {
-					if ((BOARD[x][y + 1].returnToken().isPresent()
-							&& BOARD[x][y + 1].returnToken().get().getType() == TokenType.Attacker)
-							|| BOARD[x][y + 1].getType() != SquareType.Normal) {
-						kill(x, y);
+		if (x - 1 >= 0 && x + 1 <= 10 && y - 1 >= 0 && y + 1 <= 10) {
+			if ((BOARD[x - 1][y].returnToken().isPresent()
+					&& BOARD[x - 1][y].returnToken().get().getType() == TokenType.Attacker)
+					|| BOARD[x - 1][y].getType() != SquareType.Normal) {
+				if ((BOARD[x + 1][y].returnToken().isPresent()
+						&& BOARD[x + 1][y].returnToken().get().getType() == TokenType.Attacker)
+						|| BOARD[x + 1][y].getType() != SquareType.Normal) {
+					if ((BOARD[x][y - 1].returnToken().isPresent()
+							&& BOARD[x][y - 1].returnToken().get().getType() == TokenType.Attacker)
+							|| BOARD[x][y - 1].getType() != SquareType.Normal) {
+						if ((BOARD[x][y + 1].returnToken().isPresent()
+								&& BOARD[x][y + 1].returnToken().get().getType() == TokenType.Attacker)
+								|| BOARD[x][y + 1].getType() != SquareType.Normal) {
+							kill(x, y);
 
+						}
 					}
 				}
 			}

@@ -88,21 +88,21 @@ public class AI extends Player {
 			bestMove = chooseBestMoveDefend(moveOptions).get();
 		}
 
-		// Evitar movimientos repetidos
-		if (lastMoves.contains(bestMove)) {
-			moveOptions.removeIf(lastMoves::contains);
-			if (rol.equals("Attacker")) {
-				bestMove = chooseBestMoveAttack(moveOptions).get();
-			} else {
-				bestMove = chooseBestMoveDefend(moveOptions).get();
-			}
-		}
-
-		// Actualizar el historial de movimientos
-		if (lastMoves.size() >= MAX_HISTORY) {
-			lastMoves.poll();
-		}
-		lastMoves.add(bestMove);
+//		// Evitar movimientos repetidos
+//		if (lastMoves.contains(bestMove)) {
+//			moveOptions.removeIf(lastMoves::contains);
+//			if (rol.equals("Attacker")) {
+//				bestMove = chooseBestMoveAttack(moveOptions).get();
+//			} else {
+//				bestMove = chooseBestMoveDefend(moveOptions).get();
+//			}
+//		}
+//
+//		// Actualizar el historial de movimientos
+//		if (lastMoves.size() >= MAX_HISTORY) {
+//			lastMoves.poll();
+//		}
+//		lastMoves.add(bestMove);
 
 		return bestMove;
 	}
