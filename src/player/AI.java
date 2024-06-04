@@ -160,8 +160,16 @@ public class AI extends Player {
 		int w = o.getPosition().getX();
 		int z = o.getPosition().getY();
 		int counter = 0;
+		TokenType originalType = BOARD[w][z].returnToken().get().getType();
 
-		counter += countOpponentsAround(x, y, w, z);
+		if (x > 0 && isOpponent(x - 1, y, originalType))
+			counter++;
+		if (x < 10 && isOpponent(x + 1, y, originalType))
+			counter++;
+		if (y > 0 && isOpponent(x, y - 1, originalType))
+			counter++;
+		if (y < 10 && isOpponent(x, y + 1, originalType))
+			counter++;
 
 		return counter;
 	}
@@ -181,50 +189,6 @@ public class AI extends Player {
 		int y = d.getPosition().getY();
 		int w = o.getPosition().getX();
 		int z = o.getPosition().getY();
-
-		return countKingAround(x, y, w, z);
-
-	}
-
-	/**
-	 * Metodo que devuelve un numero que califica un movimiento dependiendo de si el
-	 * movimiento tiene oponentes a algun lado
-	 * 
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param z
-	 * @return numero calificatorio de movimiento
-	 * @see #getClose(Movement)
-	 */
-	private int countOpponentsAround(int x, int y, int w, int z) {
-		int counter = 0;
-		TokenType originalType = BOARD[w][z].returnToken().get().getType();
-
-		if (x > 0 && isOpponent(x - 1, y, originalType))
-			counter++;
-		if (x < 10 && isOpponent(x + 1, y, originalType))
-			counter++;
-		if (y > 0 && isOpponent(x, y - 1, originalType))
-			counter++;
-		if (y < 10 && isOpponent(x, y + 1, originalType))
-			counter++;
-
-		return counter;
-	}
-
-	/**
-	 * Metodo que devuelve un numero que califica un movimiento dependiendo de si el
-	 * movimiento tiene algun rey al lado
-	 * 
-	 * @param x
-	 * @param y
-	 * @param w
-	 * @param z
-	 * @return numero calificatorio de movimiento
-	 * @see #getCloseKing(Movement)
-	 */
-	private int countKingAround(int x, int y, int w, int z) {
 		int counter = 0;
 
 		if (x > 0 && isKing(x - 1, y, w, z))
@@ -247,7 +211,7 @@ public class AI extends Player {
 	 * @param y
 	 * @param originalType
 	 * @return booleano
-	 * @see #countOpponentsAround(int, int, int, int)
+	 * @see #getClose(Movement)
 	 */
 	private boolean isOpponent(int x, int y, TokenType originalType) {
 		return BOARD[x][y].returnToken().isPresent() && BOARD[x][y].returnToken().get().getType() != originalType
@@ -264,7 +228,7 @@ public class AI extends Player {
 	 * @param w
 	 * @param z
 	 * @return booleano
-	 * @see #countKingAround(int, int, int, int)
+	 * @see #getCloseKing(Movement)
 	 */
 	private boolean isKing(int x, int y, int w, int z) {
 		return BOARD[x][y].returnToken().isPresent() && BOARD[x][y].returnToken().get().getType() == TokenType.King
@@ -285,19 +249,6 @@ public class AI extends Player {
 		int x = d.getPosition().getX();
 		int y = d.getPosition().getY();
 
-		return checkKillingMove(x, y);
-	}
-
-	/**
-	 * Metodo que devuelve un numero que califica un movimiento dependiendo de si el
-	 * movimiento mata a una ficha
-	 * 
-	 * @param x
-	 * @param y
-	 * @return numero calificatorio de movimiento
-	 * @see #killingCondition(Movement)
-	 */
-	private int checkKillingMove(int x, int y) {
 		int counter = 0;
 
 		if (x >= 0 && y > 1 && isKillingMove(x, y - 1, x, y - 2))
@@ -321,7 +272,7 @@ public class AI extends Player {
 	 * @param x2
 	 * @param y2
 	 * @return booleano
-	 * @see #checkKillingMove(int, int)
+	 * @see #killingCondition(Movement)
 	 */
 	private boolean isKillingMove(int x1, int y1, int x2, int y2) {
 		return BOARD[x1][y1].returnToken().isPresent() && BOARD[x2][y2].returnToken().isPresent()
