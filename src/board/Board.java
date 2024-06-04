@@ -133,10 +133,6 @@ public class Board {
 		drawLast(m);
 	}
 
-	public Board returnSelf() {
-		return this;
-	}
-
 	/**
 	 * Metodo que realiza comprobaciones si el movimiento realizado mata y llama a
 	 * otro metodo para que mate en caso de que asi sea, llama a otro metodo si se

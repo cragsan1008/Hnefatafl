@@ -127,10 +127,20 @@ public abstract class Player {
 		this.winner = winner;
 	}
 
+	/**
+	 * Metodo que devuelve el tablero del jugador
+	 * 
+	 * @return
+	 */
 	public Board getBoard() {
 		return board;
 	}
 
+	/**
+	 * Metodo que sirve para restablecer el tablero que tiene el jugador
+	 * 
+	 * @param board
+	 */
 	public void resetBoard(Board board) {
 		this.board = board;
 		this.BOARD = board.getBOARD();

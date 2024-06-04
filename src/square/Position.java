@@ -75,6 +75,9 @@ public class Position implements Comparable<Position> {
 		return x == other.x && y == other.y;
 	}
 
+	/**
+	 * Compara la Posicion especificado con esta Posicion para ver si son iguales
+	 */
 	@Override
 	public int compareTo(Position other) {
 		int cmp = Integer.compare(this.x, other.x);
