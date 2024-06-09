@@ -131,6 +131,15 @@ public class Movement implements Comparable<Movement> {
 		return moValid;
 	}
 
+	/**
+	 * Metodo que devuelve una lista de movimientos validos para que sea usada
+	 * posterirormente por la IA
+	 * 
+	 * @param BOARD
+	 * @param x
+	 * @param y
+	 * @return Lista de movimientos validos
+	 */
 	public List<Movement> movementListIA(Square[][] BOARD, int x, int y) {
 		boolean stay;
 		squareO = BOARD[x][y];
